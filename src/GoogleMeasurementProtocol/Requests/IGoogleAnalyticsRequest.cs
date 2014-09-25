@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using GoogleMeasurementProtocol.Parameters;
 using GoogleMeasurementProtocol.Parameters.User;
 
@@ -32,5 +33,29 @@ namespace GoogleMeasurementProtocol.Requests
         /// </summary>
         /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
         void Get(Guid clientId);
+
+        /// <summary>
+        /// Makes an async Post request to Google Analytics
+        /// </summary>
+        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
+        Task PostAsync(ClientId clientId);
+
+        /// <summary>
+        /// Makes an async Post request to Google Analytics
+        /// </summary>
+        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
+        Task PostAsync(Guid clientId);
+
+        /// <summary>
+        /// Makes an async Get request to Google Analytics
+        /// </summary>
+        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
+        Task GetAsync(ClientId clientId);
+
+        /// <summary>
+        /// Makes an async Get request to Google Analytics
+        /// </summary>
+        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
+        Task GetAsync(Guid clientId);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
+using System.Threading.Tasks;
 using GoogleMeasurementProtocol.Extensions;
 using GoogleMeasurementProtocol.Parameters;
 using GoogleMeasurementProtocol.Parameters.General;
@@ -35,7 +36,6 @@ namespace GoogleMeasurementProtocol.Requests
         {
             MakeRequest(clientId,"POST");
         }
-
 
         public virtual void Get(Guid clientId)
         {
@@ -73,34 +73,74 @@ namespace GoogleMeasurementProtocol.Requests
 
                 if (method == "POST")
                 {
-                    webClient.UploadValuesCompleted += webClient_UploadValuesCompleted;
-                    webClient.UploadValuesAsync(_uri, method, requestParams);
+                    webClient.UploadValues(_uri, method, requestParams);
                 }
                 else
                 {
-                    webClient.DownloadStringCompleted += webClient_DownloadStringCompleted;
                     webClient.QueryString = requestParams;
-                    webClient.DownloadStringAsync(_uri);
+                    webClient.DownloadString(_uri);
                 }
             }
         }
 
-        void webClient_UploadValuesCompleted(object sender, UploadValuesCompletedEventArgs e)
+        public virtual Task PostAsync(Guid clientId)
         {
-            if (e.Error != null)
+            return PostAsync(new ClientId(clientId));
+        }
+
+        public virtual Task PostAsync(ClientId clientId)
+        {
+            return MakeRequestAsync(clientId, "POST");
+        }
+
+
+        public virtual Task GetAsync(Guid clientId)
+        {
+            return GetAsync(new ClientId(clientId));
+        }
+
+        public virtual Task GetAsync(ClientId clientId)
+        {
+            if (!Parameters.Exists(p => p is CacheBuster))
             {
-                throw e.Error;
+                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
+            }
+
+            return MakeRequestAsync(clientId, "GET");
+        }
+
+        private Task MakeRequestAsync(ClientId clientId, string method)
+        {
+            if (clientId == null || clientId.Value == null)
+            {
+                throw new ArgumentNullException("clientId");
+            }
+
+            Parameters.Add(clientId);
+
+            ValidateRequestParams();
+
+            var requestParams = new NameValueCollection();
+
+            using (var webClient = new WebClient())
+            {
+                webClient.Proxy = Proxy;
+
+                requestParams.Add(Parameters.GenerateNameValueCollection());
+
+                if (method == "POST")
+                {
+                    return webClient.UploadValuesTaskAsync(_uri, method, requestParams);
+                }
+                else
+                {
+                    webClient.QueryString = requestParams;
+                    return webClient.DownloadStringTaskAsync(_uri);
+                }
             }
         }
 
-        void webClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                throw e.Error;
-            }
-        }
-
+      
         protected virtual void ValidateRequestParams()
         {
             if (!Parameters.Exists(p => p is ProtocolVersion))
