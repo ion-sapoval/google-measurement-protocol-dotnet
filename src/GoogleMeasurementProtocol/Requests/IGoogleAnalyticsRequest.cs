@@ -20,6 +20,12 @@ namespace GoogleMeasurementProtocol.Requests
         /// Makes a Post request to Google Analytics
         /// </summary>
         /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
+        void Post(string clientId);
+
+        /// <summary>
+        /// Makes a Post request to Google Analytics
+        /// </summary>
+        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
         void Post(Guid clientId);
 
         /// <summary>
@@ -27,6 +33,12 @@ namespace GoogleMeasurementProtocol.Requests
         /// </summary>
         /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
         void Get(ClientId clientId);
+
+        /// <summary>
+        /// Makes a Get request to Google Analytics
+        /// </summary>
+        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
+        void Get(string clientId);
 
         /// <summary>
         /// Makes a Get request to Google Analytics

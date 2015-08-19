@@ -15,7 +15,7 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxx-x");
+            var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxxx-x");
 
             var request = factory.CreateRequest(HitTypes.PageView);
 
@@ -24,8 +24,9 @@ namespace TestConsole
             request.Parameters.Add(new DocumentTitle("test title2"));
 
             request.Get(Guid.NewGuid());
-            request.Post(Guid.NewGuid());
+            request.Post(Guid.NewGuid().ToString());
 
+            Console.Write("Done!");
             Console.ReadKey();
 
 

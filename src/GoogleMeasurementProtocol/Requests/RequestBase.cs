@@ -31,6 +31,11 @@ namespace GoogleMeasurementProtocol.Requests
         {
             Post(new ClientId(clientId));
         }
+
+        public virtual void Post(string clientId)
+        {
+            Post(new ClientId(clientId));
+        }
        
         public virtual void Post(ClientId clientId)
         {
@@ -38,6 +43,11 @@ namespace GoogleMeasurementProtocol.Requests
         }
 
         public virtual void Get(Guid clientId)
+        {
+            Get(new ClientId(clientId));
+        }
+
+        public virtual void Get(string clientId)
         {
             Get(new ClientId(clientId));
         }
