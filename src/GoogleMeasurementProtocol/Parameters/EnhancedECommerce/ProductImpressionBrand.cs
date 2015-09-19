@@ -1,18 +1,32 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
+﻿using GoogleMeasurementProtocol.Validators;
+
+namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
    /// <summary>
     /// The brand associated with the product.
    /// </summary>
     public class ProductImpressionBrand : Parameter
     {
-        public ProductImpressionBrand(string value)
+        public byte ProductIndex { get; set; }
+
+        public byte ListIndex { get; set; }
+
+        public ProductImpressionBrand(string value, byte productIndex = 1, byte listIndex = 1)
             : base(value)
         {
+            ProductIndex = productIndex;
+            ListIndex = listIndex;
         }
 
         public override string Name
         {
-            get { return @"il[\d+]pi[\d+]br"; }
+            get
+            {
+                IndexValidator.ValidateProductIndex(ProductIndex);
+                IndexValidator.ValidateListIndex(ListIndex);
+
+                return string.Format("il{0}pi{1}br",ListIndex, ProductIndex);
+            }
         }
     }
 }

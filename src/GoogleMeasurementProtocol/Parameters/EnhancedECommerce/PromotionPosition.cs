@@ -1,18 +1,28 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
+﻿using GoogleMeasurementProtocol.Validators;
+
+namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
     /// <summary>
     /// The position of the creative.
     /// </summary>
     public class PromotionPosition : Parameter
     {
-        public PromotionPosition(string value)
+        public byte PromoIndex { get; set; }
+
+        public PromotionPosition(string value, byte promoIndex = 1)
             : base(value)
         {
+            PromoIndex = promoIndex;
         }
 
         public override string Name
         {
-            get { return @"promo[\d+]ps"; }
+            get
+            {
+                IndexValidator.ValidatePromotionIndex(PromoIndex);
+
+                return string.Format("promo{0}ps", PromoIndex);
+            }
         }
     }
 }

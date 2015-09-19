@@ -1,4 +1,5 @@
 ﻿using System;
+using GoogleMeasurementProtocol.Validators;
 
 namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
@@ -8,14 +9,26 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
    /// </summary>
     public class ProductCustomMetric : Parameter
     {
-        public ProductCustomMetric(int value)
+        public byte ProductIndex { get; set; }
+
+        public byte MetricIndex { get; set; }
+
+        public ProductCustomMetric(string value, byte productIndex = 1, byte metricIndex = 1)
             : base(value)
         {
+            ProductIndex = productIndex;
+            MetricIndex = metricIndex;
         }
 
         public override string Name
         {
-            get { return @"pr[\d+]cm[index]"; }
+            get
+            {
+                IndexValidator.ValidateProductIndex(ProductIndex);
+                IndexValidator.ValidateMetricIndex(MetricIndex);
+
+                return string.Format("pr{0}cm{1}",ProductIndex, MetricIndex);
+            }
         }
 
         public override Type ValueType

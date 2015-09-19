@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters.ContentInformation;
-using GoogleMeasurementProtocol.Parameters.Timing;
-using GoogleMeasurementProtocol.Parameters.User;
 
 namespace TestConsole
 {
@@ -16,7 +9,7 @@ namespace TestConsole
         static void Main(string[] args)
         {
             var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxxx-x");
-
+            
             var request = factory.CreateRequest(HitTypes.PageView);
 
             request.Parameters.Add(new DocumentHostName("test.com"));

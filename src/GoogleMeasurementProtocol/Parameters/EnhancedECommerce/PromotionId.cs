@@ -1,18 +1,28 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
+﻿using GoogleMeasurementProtocol.Validators;
+
+namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
     /// <summary>
     /// The promotion ID. 
     /// </summary>
     public class PromotionId : Parameter
     {
-        public PromotionId(string value)
+       public byte PromoIndex { get; set; }
+
+       public PromotionId(string value, byte promoIndex = 1)
             : base(value)
         {
+            PromoIndex = promoIndex;
         }
 
         public override string Name
         {
-            get { return @"promo[\d+]id"; }
+            get
+            {
+                IndexValidator.ValidatePromotionIndex(PromoIndex);
+
+                return string.Format("promo{0}id", PromoIndex);
+            }
         }
     }
 }

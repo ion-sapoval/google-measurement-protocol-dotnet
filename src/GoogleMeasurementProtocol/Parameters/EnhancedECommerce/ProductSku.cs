@@ -1,4 +1,6 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
+﻿using GoogleMeasurementProtocol.Validators;
+
+namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
     /// <summary>
     /// The SKU of the product. For analytics.js 
@@ -6,13 +8,22 @@
     /// </summary>
     public class ProductSku : Parameter
     {
-        public ProductSku(string value) : base(value)
+        public byte ProductIndex { get; set; }
+
+        public ProductSku(string value, byte productIndex = 1)
+            : base(value)
         {
+            ProductIndex = productIndex;
         }
 
         public override string Name
         {
-            get { return @"pr[\d+]id"; }
+            get
+            {
+                IndexValidator.ValidateProductIndex(ProductIndex);
+
+                return string.Format("pr{0}id", ProductIndex);
+            }
         }
     }
 }

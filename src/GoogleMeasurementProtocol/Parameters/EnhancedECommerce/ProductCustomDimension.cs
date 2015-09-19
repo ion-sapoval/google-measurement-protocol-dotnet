@@ -1,4 +1,6 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
+﻿using GoogleMeasurementProtocol.Validators;
+
+namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
     /// <summary>
     /// A product-level custom dimesion where index is a positive integer between 0 and 200.
@@ -6,14 +8,26 @@
     /// </summary>
     public class ProductCustomDimension : Parameter
     {
-        public ProductCustomDimension(string value)
+        public byte ProductIndex { get; set; }
+
+        public byte DimensionIndex { get; set; }
+
+        public ProductCustomDimension(string value, byte productIndex = 1, byte dimensionIndex = 1)
             : base(value)
         {
+            ProductIndex = productIndex;
+            DimensionIndex = dimensionIndex;
         }
 
         public override string Name
         {
-            get { return @"pr[\d+]cd[index]"; }
+            get
+            {
+                IndexValidator.ValidateProductIndex(ProductIndex);
+                IndexValidator.ValidateDimensionIndex(DimensionIndex);
+
+                return string.Format("pr{0}cd{1}",ProductIndex, DimensionIndex);
+            }
         }
     }
 }

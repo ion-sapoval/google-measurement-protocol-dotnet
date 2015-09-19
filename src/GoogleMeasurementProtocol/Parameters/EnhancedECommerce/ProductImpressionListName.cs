@@ -1,18 +1,28 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
+﻿using GoogleMeasurementProtocol.Validators;
+
+namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
    /// <summary>
     /// The list or collection to which a product belongs.
    /// </summary>
     public class ProductImpressionListName : Parameter
     {
-        public ProductImpressionListName(string value)
+        public byte ListIndex { get; set; }
+
+        public ProductImpressionListName(string value, byte listIndex = 1)
             : base(value)
         {
+            ListIndex = listIndex;
         }
 
         public override string Name
         {
-            get { return @"il[\d+]nm"; }
+            get
+            {
+                IndexValidator.ValidateListIndex(ListIndex);
+
+                return string.Format("il{0}nm", ListIndex); 
+            }
         }
     }
 }

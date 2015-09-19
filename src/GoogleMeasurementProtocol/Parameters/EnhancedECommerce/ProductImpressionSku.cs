@@ -1,18 +1,32 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
+﻿using GoogleMeasurementProtocol.Validators;
+
+namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
     /// <summary>
     /// The product ID or SKU.
     /// </summary>
     public class ProductImpressionSku : Parameter
     {
-        public ProductImpressionSku(string value)
+       public byte ProductIndex { get; set; }
+
+        public byte ListIndex { get; set; }
+
+        public ProductImpressionSku(string value, byte productIndex = 1, byte listIndex = 1)
             : base(value)
         {
+            ProductIndex = productIndex;
+            ListIndex = listIndex;
         }
 
         public override string Name
         {
-            get { return @"il[\d+]pi[\d+]id"; }
+            get
+            {
+                IndexValidator.ValidateProductIndex(ProductIndex);
+                IndexValidator.ValidateListIndex(ListIndex);
+
+                return string.Format("il{0}pi{1}id",ListIndex, ProductIndex);
+            }
         }
     }
 }

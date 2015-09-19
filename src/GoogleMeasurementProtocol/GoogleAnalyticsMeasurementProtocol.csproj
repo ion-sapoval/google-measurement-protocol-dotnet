@@ -162,6 +162,7 @@
     <Compile Include="Requests\SocialInteractionsRequest.cs" />
     <Compile Include="Requests\TransactionRequest.cs" />
     <Compile Include="Requests\UserTimingTrackingRequest.cs" />
+    <Compile Include="Validators\IndexValidator.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
