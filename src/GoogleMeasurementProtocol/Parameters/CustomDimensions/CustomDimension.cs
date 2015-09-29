@@ -1,4 +1,6 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
+﻿using GoogleMeasurementProtocol.Validators;
+
+namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
 {
    /// <summary>
     /// Each custom dimension has an associated index.
@@ -7,14 +9,22 @@
    /// </summary>
     public class CustomDimension : Parameter
     {
-        public CustomDimension(string value)
+         public byte DimensionIndex { get; set; }
+
+         public CustomDimension(int value, byte dimensionIndex = 1)
             : base(value)
         {
+            DimensionIndex = dimensionIndex;
         }
 
         public override string Name
         {
-            get { return "cd[1-9][0-9]*"; }
+            get
+            {
+                IndexValidator.ValidateDimensionIndex(DimensionIndex);
+
+                return string.Format("cd{0}", DimensionIndex);
+            }
         }
     }
 }

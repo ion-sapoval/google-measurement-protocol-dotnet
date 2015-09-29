@@ -1,4 +1,5 @@
 ﻿using System;
+using GoogleMeasurementProtocol.Validators;
 
 namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
 {
@@ -9,14 +10,22 @@ namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
    /// </summary>
     public class CustomMetric : Parameter
     {
-        public CustomMetric(int value)
+        public byte MetricIndex { get; set; }
+
+        public CustomMetric(int value, byte metricIndex = 1)
             : base(value)
         {
+            MetricIndex = metricIndex;
         }
 
         public override string Name
         {
-            get { return "cm[1-9][0-9]*"; }
+            get
+            {
+                IndexValidator.ValidateMetricIndex(MetricIndex);
+
+                return string.Format("cm{0}", MetricIndex);
+            }
         }
 
        public override Type ValueType
