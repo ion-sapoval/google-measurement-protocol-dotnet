@@ -11,7 +11,7 @@ namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
     {
          public byte DimensionIndex { get; set; }
 
-         public CustomDimension(int value, byte dimensionIndex = 1)
+         public CustomDimension(string value, byte dimensionIndex = 1)
             : base(value)
         {
             DimensionIndex = dimensionIndex;
