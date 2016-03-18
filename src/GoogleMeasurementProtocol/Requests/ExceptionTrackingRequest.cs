@@ -8,8 +8,8 @@ namespace GoogleMeasurementProtocol.Requests
         public ExceptionTrackingRequest(bool useSsl = false, IWebProxy proxy = null)
             : base(useSsl, proxy)
         {
-            HitType = HitTypes.Item;
-            Parameters.Add(new HitType(HitTypes.Item));
+            HitType = HitTypes.Exception;
+            Parameters.Add(new HitType(HitTypes.Exception));
         }
     }
 }
