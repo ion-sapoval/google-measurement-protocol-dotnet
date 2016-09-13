@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using GoogleMeasurementProtocol.Parameters;
+﻿using GoogleMeasurementProtocol.Parameters;
 using GoogleMeasurementProtocol.Parameters.General;
 using GoogleMeasurementProtocol.Requests;
+using System;
+using System.Collections.Generic;
+using System.Net;
 
 namespace GoogleMeasurementProtocol
 {
@@ -43,16 +43,21 @@ namespace GoogleMeasurementProtocol
         {
             if (hitType == null)
             {
-              throw new ArgumentNullException("hitType");  
+                throw new ArgumentNullException("hitType");
             }
 
             IGoogleAnalyticsRequest request;
 
             switch (hitType.ToLower())
             {
-                case HitTypes.PageView :
+                case HitTypes.PageView:
 
                     request = new PageViewRequest(_useSsl, _proxy);
+                    break;
+
+                case HitTypes.Event:
+
+                    request = new EventRequest(_useSsl, _proxy);
                     break;
 
                 default:
