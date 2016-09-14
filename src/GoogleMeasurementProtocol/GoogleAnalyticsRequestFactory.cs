@@ -1,9 +1,10 @@
-﻿using GoogleMeasurementProtocol.Parameters;
-using GoogleMeasurementProtocol.Parameters.General;
-using GoogleMeasurementProtocol.Requests;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using GoogleMeasurementProtocol.Parameters;
+using GoogleMeasurementProtocol.Parameters.General;
+using GoogleMeasurementProtocol.Requests;
+
 
 namespace GoogleMeasurementProtocol
 {
@@ -59,6 +60,37 @@ namespace GoogleMeasurementProtocol
 
                     request = new EventRequest(_useSsl, _proxy);
                     break;
+
+                case HitTypes.Exception:
+
+                    request = new ExceptionTrackingRequest(_useSsl, _proxy);
+                    break;
+
+                case HitTypes.Item:
+
+                    request = new ItemRequest(_useSsl, _proxy);
+                    break;
+
+                case HitTypes.ScreenView:
+
+                    request = new ScreenTrackingRequest(_useSsl, _proxy);
+                    break;
+
+                case HitTypes.Social:
+
+                    request = new SocialInteractionsRequest(_useSsl, _proxy);
+                    break;
+
+                case HitTypes.Timing:
+
+                    request = new UserTimingTrackingRequest(_useSsl, _proxy);
+                    break;
+
+                case HitTypes.Transaction:
+
+                    request = new TransactionRequest(_useSsl, _proxy);
+                    break;
+
 
                 default:
                     throw new ApplicationException("Unknown hitType: " + hitType);
