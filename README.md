@@ -27,13 +27,22 @@ Install-Package GoogleMeasurementProtocol
             request.Parameters.Add(new DocumentPath("/test/testPath2"));
             request.Parameters.Add(new DocumentTitle("test title2"));
 
-            var clientId = Guid.NewGuid();
+            var clientId = new ClientId(Guid.NewGuid());
 
-            //Make a get request which will contain all informations from above
+            //Make a get request which will contain all information from above
             request.Get(clientId);
 
-            //Make a Post request which will contain all informations from above
+            //Make a Post request which will contain all information from above
             request.Post(clientId);
+```
+
+* Validating Hits
+
+```csharp
+           
+            var requestValidationResponseForGet = request.Debug.Get(new UserId("userId"));
+            var requestValidationResponseForPost = request.Debug.Post(new UserId("userId"));
+            
 ```
 
 * Connection configuration
@@ -42,7 +51,7 @@ Install-Package GoogleMeasurementProtocol
            var webProxy = new WebProxy("http://localhost:8888");
 
             //Create a factory which will create requests that will use https connection through the given proxy
-            var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxx-x",true, webProxy);
+            var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxx-x", webProxy);
 ```
 
 * Set Agent and Ip info
@@ -53,7 +62,7 @@ Install-Package GoogleMeasurementProtocol
             request.Parameters.Add(new IpOverride("1.2.3.4"));
 ```
 
-##Exceptions
+## Exceptions
 
 All exceptions that occur in library will be propagated to the calling thread.
 
