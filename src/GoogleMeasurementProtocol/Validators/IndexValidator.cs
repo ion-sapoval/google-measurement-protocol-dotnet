@@ -2,7 +2,7 @@
 
 namespace GoogleMeasurementProtocol.Validators
 {
-    internal class IndexValidator
+    internal static class IndexValidator
     {
         public static void ValidateProductIndex(byte index)
         {

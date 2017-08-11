@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsMeasurementProtocol", "GoogleMeasurementProtocol\GoogleAnalyticsMeasurementProtocol.csproj", "{5DA1474F-FDF8-4014-8FC1-6F7303C0C027}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{D384B248-F909-4A49-94D0-FC23727AD117}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests", "_Tests", "{72148752-6269-4980-A51D-6A1B9A47897B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{100892AF-7638-451F-B7C0-526D32C668B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +25,16 @@ Global
 		{D384B248-F909-4A49-94D0-FC23727AD117}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D384B248-F909-4A49-94D0-FC23727AD117}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D384B248-F909-4A49-94D0-FC23727AD117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{100892AF-7638-451F-B7C0-526D32C668B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{100892AF-7638-451F-B7C0-526D32C668B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{100892AF-7638-451F-B7C0-526D32C668B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{100892AF-7638-451F-B7C0-526D32C668B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D384B248-F909-4A49-94D0-FC23727AD117} = {72148752-6269-4980-A51D-6A1B9A47897B}
+		{100892AF-7638-451F-B7C0-526D32C668B2} = {72148752-6269-4980-A51D-6A1B9A47897B}
 	EndGlobalSection
 EndGlobal

@@ -13,21 +13,18 @@ namespace GoogleMeasurementProtocol
         private readonly IWebProxy _proxy;
         private readonly ProtocolVersion _protocolVersion = new ProtocolVersion("1");
         private readonly TrackingId _trackingId;
-        private readonly bool _useSsl;
 
-        public GoogleAnalyticsRequestFactory(string trackingId, bool useSslConnection = false, IWebProxy proxy = null)
+        [Obsolete("Google is supporting now only https protocol. Parameter useSsl doesn't have any effect.")]
+        public GoogleAnalyticsRequestFactory(TrackingId trackingId, bool useSslConnection, IWebProxy proxy = null) : this(trackingId, proxy)
         {
-            if (string.IsNullOrEmpty(trackingId))
-            {
-                throw new ArgumentException("TrackingId can't be null or empty.", nameof(trackingId));
-            }
-
-            _trackingId = new TrackingId(trackingId);
-            _proxy = proxy;
-            _useSsl = useSslConnection;
         }
 
-        public GoogleAnalyticsRequestFactory(TrackingId trackingId, bool useSslConnection = false, IWebProxy proxy = null)
+        [Obsolete("Google is supporting now only https protocol. Parameter useSsl doesn't have any effect.")]
+        public GoogleAnalyticsRequestFactory(string trackingId, bool useSslConnection, IWebProxy proxy = null) : this(trackingId, proxy)
+        {
+        }
+
+        public GoogleAnalyticsRequestFactory(TrackingId trackingId, IWebProxy proxy = null)
         {
             if (trackingId?.Value == null)
             {
@@ -36,7 +33,17 @@ namespace GoogleMeasurementProtocol
 
             _trackingId = trackingId;
             _proxy = proxy;
-            _useSsl = useSslConnection;
+        }
+
+        public GoogleAnalyticsRequestFactory(string trackingId, IWebProxy proxy = null)
+        {
+            if (string.IsNullOrEmpty(trackingId))
+            {
+                throw new ArgumentException("TrackingId can't be null or empty.", nameof(trackingId));
+            }
+
+            _trackingId = new TrackingId(trackingId);
+            _proxy = proxy;
         }
 
 
@@ -53,42 +60,42 @@ namespace GoogleMeasurementProtocol
             {
                 case HitTypes.PageView:
 
-                    request = new PageViewRequest(_useSsl, _proxy);
+                    request = new PageViewRequest(_proxy);
                     break;
 
                 case HitTypes.Event:
 
-                    request = new EventRequest(_useSsl, _proxy);
+                    request = new EventRequest(_proxy);
                     break;
 
                 case HitTypes.Exception:
 
-                    request = new ExceptionTrackingRequest(_useSsl, _proxy);
+                    request = new ExceptionTrackingRequest(_proxy);
                     break;
 
                 case HitTypes.Item:
 
-                    request = new ItemRequest(_useSsl, _proxy);
+                    request = new ItemRequest(_proxy);
                     break;
 
                 case HitTypes.ScreenView:
 
-                    request = new ScreenTrackingRequest(_useSsl, _proxy);
+                    request = new ScreenTrackingRequest(_proxy);
                     break;
 
                 case HitTypes.Social:
 
-                    request = new SocialInteractionsRequest(_useSsl, _proxy);
+                    request = new SocialInteractionsRequest(_proxy);
                     break;
 
                 case HitTypes.Timing:
 
-                    request = new UserTimingTrackingRequest(_useSsl, _proxy);
+                    request = new UserTimingTrackingRequest(_proxy);
                     break;
 
                 case HitTypes.Transaction:
 
-                    request = new TransactionRequest(_useSsl, _proxy);
+                    request = new TransactionRequest(_proxy);
                     break;
 
 

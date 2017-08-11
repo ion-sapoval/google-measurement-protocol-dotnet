@@ -1,6 +1,6 @@
 ﻿namespace GoogleMeasurementProtocol
 {
-    public class HitTypes
+    public static class HitTypes
     {
         public const string PageView = "pageview";
 

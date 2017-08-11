@@ -7,11 +7,6 @@ namespace GoogleMeasurementProtocol.Requests
 {
     public class PageViewRequest : RequestBase
     {
-        [Obsolete("Google is supporting now only https protocol. Parameter useSsl doesn't have any effect.")]
-        public PageViewRequest(bool useSsl = false, IWebProxy proxy = null) : this(proxy)
-        {
-        }
-
         public PageViewRequest(IWebProxy proxy = null) : base(proxy)
         {
             HitType = HitTypes.PageView;

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GoogleMeasurementProtocol.Parameters;
 using GoogleMeasurementProtocol.Parameters.User;
+using GoogleMeasurementProtocol.Requests.Debug;
 
 namespace GoogleMeasurementProtocol.Requests
 {
     public interface IGoogleAnalyticsRequest
     {
+        IDebugRequest Debug { get; }
+
         List<Parameter> Parameters { get; set; }
 
         /// <summary>
@@ -19,14 +22,8 @@ namespace GoogleMeasurementProtocol.Requests
         /// <summary>
         /// Makes a Post request to Google Analytics
         /// </summary>
-        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
-        void Post(string clientId);
-
-        /// <summary>
-        /// Makes a Post request to Google Analytics
-        /// </summary>
-        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
-        void Post(Guid clientId);
+        /// <param name="userId">This is intended to be a known identifier for a user provided by the site owner/tracking library user</param>
+        void Post(UserId userId);
 
         /// <summary>
         /// Makes a Get request to Google Analytics
@@ -37,14 +34,8 @@ namespace GoogleMeasurementProtocol.Requests
         /// <summary>
         /// Makes a Get request to Google Analytics
         /// </summary>
-        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
-        void Get(string clientId);
-
-        /// <summary>
-        /// Makes a Get request to Google Analytics
-        /// </summary>
-        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
-        void Get(Guid clientId);
+        /// <param name="userId">This is intended to be a known identifier for a user provided by the site owner/tracking library user</param>
+        void Get(UserId userId);
 
         /// <summary>
         /// Makes an async Post request to Google Analytics
@@ -55,8 +46,8 @@ namespace GoogleMeasurementProtocol.Requests
         /// <summary>
         /// Makes an async Post request to Google Analytics
         /// </summary>
-        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
-        Task PostAsync(Guid clientId);
+        /// <param name="userId">This is intended to be a known identifier for a user provided by the site owner/tracking library user</param>
+        Task PostAsync(UserId userId);
 
         /// <summary>
         /// Makes an async Get request to Google Analytics
@@ -67,7 +58,7 @@ namespace GoogleMeasurementProtocol.Requests
         /// <summary>
         /// Makes an async Get request to Google Analytics
         /// </summary>
-        /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
-        Task GetAsync(Guid clientId);
+        /// <param name="userId">This is intended to be a known identifier for a user provided by the site owner/tracking library user</param>
+        Task GetAsync(UserId userId);
     }
 }

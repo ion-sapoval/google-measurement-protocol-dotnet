@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using GoogleMeasurementProtocol.Extensions;
 using GoogleMeasurementProtocol.Parameters;
 using GoogleMeasurementProtocol.Parameters.General;
-using GoogleMeasurementProtocol.Parameters.Hit;
 using GoogleMeasurementProtocol.Parameters.User;
+using GoogleMeasurementProtocol.Requests.Debug;
+using GoogleMeasurementProtocol.Validators;
 
 namespace GoogleMeasurementProtocol.Requests
 {
@@ -23,46 +24,15 @@ namespace GoogleMeasurementProtocol.Requests
             Parameters = new List<Parameter>();
 
             _uri = new Uri("https://www.google-analytics.com/collect");
+
+            Debug = new DebugRequest(Parameters, Proxy);
         }
+
+        public IDebugRequest Debug { get; private set; }
 
         public List<Parameter> Parameters { get; set; }
 
-        public virtual void Post(Guid clientId)
-        {
-            Post(new ClientId(clientId));
-        }
-
-        public virtual void Post(string clientId)
-        {
-            Post(new ClientId(clientId));
-        }
-       
         public virtual void Post(ClientId clientId)
-        {
-            MakeRequest(clientId,"POST");
-        }
-
-        public virtual void Get(Guid clientId)
-        {
-            Get(new ClientId(clientId));
-        }
-
-        public virtual void Get(string clientId)
-        {
-            Get(new ClientId(clientId));
-        }
-
-        public virtual void Get(ClientId clientId)
-        {
-            if (!Parameters.Exists(p => p is CacheBuster))
-            {
-                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
-            }
-
-            MakeRequest(clientId, "GET");
-        }
-
-        private void MakeRequest(ClientId clientId, string method)
         {
             if (clientId?.Value == null)
             {
@@ -71,6 +41,57 @@ namespace GoogleMeasurementProtocol.Requests
 
             Parameters.Add(clientId);
 
+            MakeRequest("POST");
+        }
+
+        public virtual void Post(UserId userId)
+        {
+            if (userId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            Parameters.Add(userId);
+
+            MakeRequest("POST");
+        }
+
+        public virtual void Get(ClientId clientId)
+        {
+            if (clientId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(clientId));
+            }
+
+            if (!Parameters.Exists(p => p is CacheBuster))
+            {
+                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
+            }
+
+            Parameters.Add(clientId);
+
+            MakeRequest("GET");
+        }
+
+        public virtual void Get(UserId userId)
+        {
+            if (userId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            if (!Parameters.Exists(p => p is CacheBuster))
+            {
+                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
+            }
+
+            Parameters.Add(userId);
+
+            MakeRequest("GET");
+        }
+
+        private void MakeRequest(string httpMethod)
+        {
             ValidateRequestParams();
 
             var requestParams = new NameValueCollection();
@@ -81,9 +102,9 @@ namespace GoogleMeasurementProtocol.Requests
 
                 requestParams.Add(Parameters.GenerateNameValueCollection());
 
-                if (method == "POST")
+                if (httpMethod == "POST")
                 {
-                    webClient.UploadValues(_uri, method, requestParams);
+                    webClient.UploadValues(_uri, httpMethod, requestParams);
                 }
                 else
                 {
@@ -93,41 +114,8 @@ namespace GoogleMeasurementProtocol.Requests
             }
         }
 
-        public virtual Task PostAsync(Guid clientId)
+        private async Task MakeRequestAsync(string httpMethod)
         {
-            return PostAsync(new ClientId(clientId));
-        }
-
-        public virtual Task PostAsync(ClientId clientId)
-        {
-            return MakeRequestAsync(clientId, "POST");
-        }
-
-
-        public virtual Task GetAsync(Guid clientId)
-        {
-            return GetAsync(new ClientId(clientId));
-        }
-
-        public virtual Task GetAsync(ClientId clientId)
-        {
-            if (!Parameters.Exists(p => p is CacheBuster))
-            {
-                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
-            }
-
-            return MakeRequestAsync(clientId, "GET");
-        }
-
-        private Task MakeRequestAsync(ClientId clientId, string method)
-        {
-            if (clientId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(clientId));
-            }
-
-            Parameters.Add(clientId);
-
             ValidateRequestParams();
 
             var requestParams = new NameValueCollection();
@@ -138,48 +126,81 @@ namespace GoogleMeasurementProtocol.Requests
 
                 requestParams.Add(Parameters.GenerateNameValueCollection());
 
-                if (method == "POST")
+                if (httpMethod == "POST")
                 {
-                    return webClient.UploadValuesTaskAsync(_uri, method, requestParams);
+                    await webClient.UploadValuesTaskAsync(_uri, httpMethod, requestParams);
                 }
                 else
                 {
                     webClient.QueryString = requestParams;
-                    return webClient.DownloadStringTaskAsync(_uri);
+                    await webClient.DownloadStringTaskAsync(_uri);
                 }
             }
         }
 
+        public virtual async Task PostAsync(ClientId clientId)
+        {
+            if (clientId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(clientId));
+            }
+
+            Parameters.Add(clientId);
+
+            await MakeRequestAsync("POST");
+        }
+
+        public virtual async Task PostAsync(UserId userId)
+        {
+            if (userId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            Parameters.Add(userId);
+
+            await MakeRequestAsync("POST");
+        }
+
+        public virtual async Task GetAsync(ClientId clientId)
+        {
+            if (clientId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(clientId));
+            }
+
+            if (!Parameters.Exists(p => p is CacheBuster))
+            {
+                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
+            }
+
+            Parameters.Add(clientId);
+
+            await MakeRequestAsync("GET");
+        }
+
+        public virtual async Task GetAsync(UserId userId)
+        {
+            if (userId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            if (!Parameters.Exists(p => p is CacheBuster))
+            {
+                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
+            }
+
+            Parameters.Add(userId);
+
+            await MakeRequestAsync("GET");
+        }
       
         protected virtual void ValidateRequestParams()
         {
-            if (!Parameters.Exists(p => p is ProtocolVersion))
-            {
-                throw new ApplicationException("ProtocolVersion parameter is missing.");
-            }
+            RequiredParamsValidator.Validate(Parameters);
 
-            if (!Parameters.Exists(p => p is TrackingId))
-            {
-                throw new ApplicationException("TrackingId parameter is missing.");
-            }
-
-            if (!Parameters.Exists(p => p is ClientId) && !Parameters.Exists(p => p is UserId))
-            {
-                throw new ApplicationException("ClientId or UserId parameter should be present in the request.");
-            }
-
-            if (!Parameters.Exists(p => p is HitType))
-            {
-                throw new ApplicationException("HitType parameter is missing.");
-            }
-
-            foreach (var param in Parameters)
-            {
-                if (param.SupportedHitTypes != null && !param.SupportedHitTypes.Exists(h => h.Equals(HitType)))
-                {
-                    throw new ApplicationException($"Parameters of type '{param.GetType().Name}' are not supported by requests of type {GetType().Name}");
-                }
-            }
+            CompatibilityValidator.Validate(Parameters, this, HitType);
         }
     }
 }

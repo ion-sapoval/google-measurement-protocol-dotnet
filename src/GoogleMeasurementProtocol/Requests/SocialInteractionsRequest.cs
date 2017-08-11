@@ -7,11 +7,6 @@ namespace GoogleMeasurementProtocol.Requests
 {
     public class SocialInteractionsRequest : RequestBase
     {
-        [Obsolete("Google is supporting now only https protocol. Parameter useSsl doesn't have any effect.")]
-        public SocialInteractionsRequest(bool useSsl = false, IWebProxy proxy = null) : this(proxy)
-        {
-        }
-
         public SocialInteractionsRequest(IWebProxy proxy = null) : base(proxy)
         {
             HitType = HitTypes.Social;
