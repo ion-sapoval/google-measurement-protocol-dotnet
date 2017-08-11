@@ -24,13 +24,10 @@ namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
             {
                 IndexValidator.ValidateMetricIndex(MetricIndex);
 
-                return string.Format("cm{0}", MetricIndex);
+                return $"cm{MetricIndex}";
             }
         }
 
-       public override Type ValueType
-       {
-           get { return typeof (int); }
-       }
+       public override Type ValueType => typeof (int);
     }
 }

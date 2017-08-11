@@ -21,7 +21,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
             {
                 IndexValidator.ValidatePromotionIndex(PromoIndex);
 
-                return string.Format("promo{0}id", PromoIndex);
+                return $"promo{PromoIndex}id";
             }
         }
     }

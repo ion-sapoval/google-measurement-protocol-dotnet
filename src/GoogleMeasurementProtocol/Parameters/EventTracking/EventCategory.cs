@@ -12,14 +12,8 @@ namespace GoogleMeasurementProtocol.Parameters.EventTracking
         {
         }
 
-        public override string Name
-        {
-            get { return "ec"; }
-        }
+        public override string Name => "ec";
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string> { HitTypes.Event }; }
-        }
+        public override List<string> SupportedHitTypes => new List<string> { HitTypes.Event };
     }
 }

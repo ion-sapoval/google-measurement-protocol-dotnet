@@ -21,7 +21,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
             {
                 IndexValidator.ValidateListIndex(ListIndex);
 
-                return string.Format("il{0}nm", ListIndex); 
+                return $"il{ListIndex}nm"; 
             }
         }
     }

@@ -1,12 +1,17 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using GoogleMeasurementProtocol.Parameters.Hit;
 
 namespace GoogleMeasurementProtocol.Requests
 {
     public class ExceptionTrackingRequest : RequestBase
     {
-        public ExceptionTrackingRequest(bool useSsl = false, IWebProxy proxy = null)
-            : base(useSsl, proxy)
+        [Obsolete("Google is supporting now only https protocol. Parameter useSsl doesn't have any effect.")]
+        public ExceptionTrackingRequest(bool useSsl = false, IWebProxy proxy = null) : this(proxy)
+        {
+        }
+
+        public ExceptionTrackingRequest(IWebProxy proxy = null): base(proxy)
         {
             HitType = HitTypes.Exception;
             Parameters.Add(new HitType(HitTypes.Exception));

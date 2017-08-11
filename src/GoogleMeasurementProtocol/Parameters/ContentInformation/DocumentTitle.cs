@@ -10,9 +10,6 @@
         {
         }
 
-        public override string Name
-        {
-            get { return "dt"; }
-        }
+        public override string Name => "dt";
     }
 }

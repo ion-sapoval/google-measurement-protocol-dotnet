@@ -10,17 +10,10 @@ namespace GoogleMeasurementProtocol.Parameters.User
 
         public ClientId(string value) : base(value)
         {
-            
         }
 
-        public override string Name
-        {
-            get { return "cid"; }
-        }
+        public override string Name => "cid";
 
-        public override Type ValueType
-        {
-            get { return Value.GetType(); }
-        }
+        public override Type ValueType => Value.GetType();
     }
 }

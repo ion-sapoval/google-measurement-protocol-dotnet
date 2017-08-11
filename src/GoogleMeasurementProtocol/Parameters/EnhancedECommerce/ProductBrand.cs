@@ -1,5 +1,4 @@
-﻿using System;
-using GoogleMeasurementProtocol.Validators;
+﻿using GoogleMeasurementProtocol.Validators;
 
 namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
@@ -22,7 +21,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
             {
                 IndexValidator.ValidateProductIndex(ProductIndex);
 
-                return string.Format("pr{0}br", ProductIndex);
+                return $"pr{ProductIndex}br";
             }
         }
     }

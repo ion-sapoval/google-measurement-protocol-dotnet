@@ -13,9 +13,6 @@
         {
         }
 
-        public override string Name
-        {
-            get { return "dl"; }
-        }
+        public override string Name => "dl";
     }
 }

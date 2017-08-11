@@ -1,5 +1,4 @@
-﻿using System;
-namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
+﻿namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 {
     /// <summary>
     /// The role of the products included in a hit. If a product action is not specified, all product definitions included with the hit will be ignored.
@@ -13,9 +12,6 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
         {
         }
 
-        public override string Name
-        {
-            get { return @"pa"; }
-        }
+        public override string Name => @"pa";
     }
 }

@@ -16,9 +16,6 @@ namespace GoogleMeasurementProtocol.Parameters.Session
             }
         }
 
-        public override string Name
-        {
-            get { return "sc"; }
-        }
+        public override string Name => "sc";
     }
 }

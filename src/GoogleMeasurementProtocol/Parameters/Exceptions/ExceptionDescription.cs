@@ -12,14 +12,8 @@ namespace GoogleMeasurementProtocol.Parameters.Exceptions
         {
         }
 
-        public override string Name
-        {
-            get { return "exd"; }
-        }
+        public override string Name => "exd";
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string> { HitTypes.Exception }; }
-        }
+        public override List<string> SupportedHitTypes => new List<string> { HitTypes.Exception };
     }
 }

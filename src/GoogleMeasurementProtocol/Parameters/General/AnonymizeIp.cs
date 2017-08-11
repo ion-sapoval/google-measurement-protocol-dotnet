@@ -12,14 +12,8 @@ namespace GoogleMeasurementProtocol.Parameters.General
         {
         }
 
-        public override string Name
-        {
-            get { return "aip"; }
-        }
+        public override string Name => "aip";
 
-        public override Type ValueType
-        {
-            get { return typeof (bool); }
-        }
+        public override Type ValueType => typeof (bool);
     }
 }

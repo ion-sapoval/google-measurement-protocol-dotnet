@@ -26,7 +26,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
                 IndexValidator.ValidateProductIndex(ProductIndex);
                 IndexValidator.ValidateDimensionIndex(DimensionIndex);
 
-                return string.Format("pr{0}cd{1}",ProductIndex, DimensionIndex);
+                return $"pr{ProductIndex}cd{DimensionIndex}";
             }
         }
     }

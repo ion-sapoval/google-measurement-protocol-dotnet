@@ -30,13 +30,10 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
                 IndexValidator.ValidateListIndex(ListIndex);
                 IndexValidator.ValidateMetricIndex(MetricIndex);
 
-                return string.Format("il{0}pi{1}cm{2}",ListIndex, ProductIndex, MetricIndex);
+                return $"il{ListIndex}pi{ProductIndex}cm{MetricIndex}";
             }
         }
 
-        public override Type ValueType
-        {
-            get { return typeof(int); }
-        }
+        public override Type ValueType => typeof(int);
     }
 }

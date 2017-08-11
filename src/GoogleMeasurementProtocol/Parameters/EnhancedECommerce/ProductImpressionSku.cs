@@ -7,7 +7,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
     /// </summary>
     public class ProductImpressionSku : Parameter
     {
-       public byte ProductIndex { get; set; }
+        public byte ProductIndex { get; set; }
 
         public byte ListIndex { get; set; }
 
@@ -25,7 +25,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
                 IndexValidator.ValidateProductIndex(ProductIndex);
                 IndexValidator.ValidateListIndex(ListIndex);
 
-                return string.Format("il{0}pi{1}id",ListIndex, ProductIndex);
+                return $"il{ListIndex}pi{ProductIndex}id";
             }
         }
     }

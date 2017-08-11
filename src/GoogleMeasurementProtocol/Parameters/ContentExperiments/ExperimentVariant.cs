@@ -11,9 +11,6 @@
         {
         }
 
-        public override string Name
-        {
-            get { return "xvar"; }
-        }
+        public override string Name => "xvar";
     }
 }

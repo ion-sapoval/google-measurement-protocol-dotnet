@@ -13,23 +13,14 @@ namespace GoogleMeasurementProtocol.Parameters.EventTracking
         {
             if (value < 0)
             {
-                throw new ArgumentException("Values must be non-negative.","value");
+                throw new ArgumentException("Values must be non-negative.",nameof(value));
             }
         }
 
-        public override string Name
-        {
-            get { return "ev"; }
-        }
+        public override string Name => "ev";
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string>{HitTypes.Event}; }
-        }
+        public override List<string> SupportedHitTypes => new List<string>{HitTypes.Event};
 
-        public override Type ValueType
-        {
-            get { return typeof(int); }
-        }
+        public override Type ValueType => typeof(int);
     }
 }

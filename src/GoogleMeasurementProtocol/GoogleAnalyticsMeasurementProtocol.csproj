@@ -48,6 +48,7 @@
     <Compile Include="Parameters\AppTracking\ApplicationVersion.cs" />
     <Compile Include="Parameters\ContentExperiments\ExperimentId.cs" />
     <Compile Include="Parameters\ContentExperiments\ExperimentVariant.cs" />
+    <Compile Include="Parameters\ContentInformation\ContentGroup.cs" />
     <Compile Include="Parameters\ContentInformation\DocumentHostName.cs" />
     <Compile Include="Parameters\ContentInformation\DocumentLocationUrl.cs" />
     <Compile Include="Parameters\ContentInformation\DocumentPath.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Parameters\EnhancedECommerce\CheckoutStep.cs" />
     <Compile Include="Parameters\EnhancedECommerce\CheckoutStepOption.cs" />
     <Compile Include="Parameters\EnhancedECommerce\CouponCode.cs" />
+    <Compile Include="Parameters\EnhancedECommerce\CurrencyCode.cs" />
     <Compile Include="Parameters\EnhancedECommerce\ProductAction.cs" />
     <Compile Include="Parameters\EnhancedECommerce\ProductActionList.cs" />
     <Compile Include="Parameters\EnhancedECommerce\ProductBrand.cs" />
@@ -111,12 +113,14 @@
     <Compile Include="Parameters\Exceptions\IsExceptionFatal.cs" />
     <Compile Include="Parameters\General\AnonymizeIp.cs" />
     <Compile Include="Parameters\General\CacheBuster.cs" />
+    <Compile Include="Parameters\General\DataSource.cs" />
     <Compile Include="Parameters\General\ProtocolVersion.cs" />
     <Compile Include="Parameters\General\QueueTime.cs" />
     <Compile Include="Parameters\General\TrackingId.cs" />
     <Compile Include="Parameters\Hit\HitType.cs" />
     <Compile Include="Parameters\Hit\NonInteractionHit.cs" />
     <Compile Include="Parameters\Parameter.cs" />
+    <Compile Include="Parameters\Session\GeographicalOverride.cs" />
     <Compile Include="Parameters\Session\IpOverride.cs" />
     <Compile Include="Parameters\Session\SessionControl.cs" />
     <Compile Include="Parameters\Session\UserAgentOverride.cs" />
@@ -130,7 +134,9 @@
     <Compile Include="Parameters\SystemInfo\ScreenResolution.cs" />
     <Compile Include="Parameters\SystemInfo\UserLanguage.cs" />
     <Compile Include="Parameters\SystemInfo\ViewportSize.cs" />
+    <Compile Include="Parameters\Timing\ContentLoadTime.cs" />
     <Compile Include="Parameters\Timing\DnsTime.cs" />
+    <Compile Include="Parameters\Timing\DOMInteractiveTime.cs" />
     <Compile Include="Parameters\Timing\PageDownloadTime.cs" />
     <Compile Include="Parameters\Timing\PageLoadTime.cs" />
     <Compile Include="Parameters\Timing\RedirectResponseTime.cs" />

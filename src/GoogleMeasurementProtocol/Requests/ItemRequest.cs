@@ -7,8 +7,12 @@ namespace GoogleMeasurementProtocol.Requests
 {
     public class ItemRequest : RequestBase
     {
-        public ItemRequest(bool useSsl = false, IWebProxy proxy = null)
-            : base(useSsl, proxy)
+        [Obsolete("Google is supporting now only https protocol. Parameter useSsl doesn't have any effect.")]
+        public ItemRequest(bool useSsl = false, IWebProxy proxy = null) : this(proxy)
+        {
+        }
+
+        public ItemRequest(IWebProxy proxy = null) : base(proxy)
         {
             HitType = HitTypes.Item;
             Parameters.Add(new HitType(HitTypes.Item));

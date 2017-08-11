@@ -12,14 +12,8 @@ namespace GoogleMeasurementProtocol.Parameters.ECommerce
         {
         }
 
-        public override string Name
-        {
-            get { return "cu"; }
-        }
+        public override string Name => "cu";
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string> { HitTypes.Transaction, HitTypes.Item }; }
-        }
+       public override List<string> SupportedHitTypes => new List<string> { HitTypes.Transaction, HitTypes.Item };
     }
 }

@@ -19,7 +19,7 @@ namespace GoogleMeasurementProtocol
         {
             if (string.IsNullOrEmpty(trackingId))
             {
-                throw new ArgumentException("TrackingId can't be null or empty.", "trackingId");
+                throw new ArgumentException("TrackingId can't be null or empty.", nameof(trackingId));
             }
 
             _trackingId = new TrackingId(trackingId);
@@ -29,9 +29,9 @@ namespace GoogleMeasurementProtocol
 
         public GoogleAnalyticsRequestFactory(TrackingId trackingId, bool useSslConnection = false, IWebProxy proxy = null)
         {
-            if (trackingId == null || trackingId.Value == null)
+            if (trackingId?.Value == null)
             {
-                throw new ArgumentException("TrackingId can't be null or empty.", "trackingId");
+                throw new ArgumentException("TrackingId can't be null or empty.", nameof(trackingId));
             }
 
             _trackingId = trackingId;
@@ -44,7 +44,7 @@ namespace GoogleMeasurementProtocol
         {
             if (hitType == null)
             {
-                throw new ArgumentNullException("hitType");
+                throw new ArgumentNullException(nameof(hitType));
             }
 
             IGoogleAnalyticsRequest request;

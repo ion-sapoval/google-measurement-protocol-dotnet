@@ -12,14 +12,8 @@ namespace GoogleMeasurementProtocol.Parameters.SystemInfo
         {
         }
 
-        public override string Name
-        {
-            get { return "je"; }
-        }
+        public override string Name => "je";
 
-        public override Type ValueType
-        {
-            get { return typeof(bool); }
-        }
+        public override Type ValueType => typeof(bool);
     }
 }

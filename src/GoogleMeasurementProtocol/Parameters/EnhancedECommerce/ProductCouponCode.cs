@@ -27,7 +27,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
             {
                 IndexValidator.ValidateProductIndex(ProductIndex);
 
-                return string.Format("pr{0}cc", ProductIndex); 
+                return $"pr{ProductIndex}cc"; 
             }
         }
     }

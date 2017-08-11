@@ -11,22 +11,10 @@ namespace GoogleMeasurementProtocol.Parameters.SocialInteractions
         {
         }
 
-        public override string Name
-        {
-            get { return "sn"; }
-        }
+        public override string Name => "sn";
 
-        public override bool IsRequired
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool IsRequired => true;
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string>{HitTypes.Social}; }
-        }
+        public override List<string> SupportedHitTypes => new List<string>{HitTypes.Social};
     }
 }

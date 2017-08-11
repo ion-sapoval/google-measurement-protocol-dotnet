@@ -11,9 +11,6 @@
         {
         }
 
-        public override string Name
-        {
-            get { return @"tcc"; }
-        }
+        public override string Name => @"tcc";
     }
 }

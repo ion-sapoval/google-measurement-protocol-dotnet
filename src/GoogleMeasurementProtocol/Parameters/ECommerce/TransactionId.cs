@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 namespace GoogleMeasurementProtocol.Parameters.ECommerce
 {
     /// <summary>
@@ -12,19 +11,10 @@ namespace GoogleMeasurementProtocol.Parameters.ECommerce
         {
         }
 
-        public override string Name
-        {
-            get { return "ti"; }
-        }
+        public override string Name => "ti";
 
-        public override bool IsRequired
-        {
-            get { return true; }
-        }
+        public override bool IsRequired => true;
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string>{HitTypes.Transaction, HitTypes.Item}; }
-        }
+        public override List<string> SupportedHitTypes => new List<string>{HitTypes.Transaction, HitTypes.Item};
     }
 }

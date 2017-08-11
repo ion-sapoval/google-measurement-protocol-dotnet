@@ -13,23 +13,10 @@ namespace GoogleMeasurementProtocol.Parameters.ECommerce
         {
         }
 
-        public override string Name
-        {
-            get { return "ip"; }
-        }
+        public override string Name => "ip";
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string> { HitTypes.Item }; }
+        public override List<string> SupportedHitTypes => new List<string> { HitTypes.Item };
 
-        }
-
-        public override Type ValueType
-        {
-            get
-            {
-                return typeof(decimal);
-            }
-        }
+        public override Type ValueType => typeof(decimal);
     }
 }

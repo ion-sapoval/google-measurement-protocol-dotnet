@@ -23,7 +23,7 @@ namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
             {
                 IndexValidator.ValidateDimensionIndex(DimensionIndex);
 
-                return string.Format("cd{0}", DimensionIndex);
+                return $"cd{DimensionIndex}";
             }
         }
     }

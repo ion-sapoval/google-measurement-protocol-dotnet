@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GoogleMeasurementProtocol.Parameters.User
+﻿namespace GoogleMeasurementProtocol.Parameters.User
 {
     /// <summary>
     /// This is intended to be a known identifier for a user provided by the site owner/tracking library user.
@@ -16,9 +10,6 @@ namespace GoogleMeasurementProtocol.Parameters.User
         {
         }
 
-        public override string Name
-        {
-            get { return "uid"; }
-        }
+        public override string Name => "uid";
     }
 }

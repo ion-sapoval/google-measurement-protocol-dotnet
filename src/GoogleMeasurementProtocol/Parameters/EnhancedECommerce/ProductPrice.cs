@@ -22,13 +22,10 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
             {
                 IndexValidator.ValidateProductIndex(ProductIndex);
 
-                return string.Format("pr{0}pr", ProductIndex);
+                return $"pr{ProductIndex}pr";
             }
         }
 
-        public override Type ValueType
-        {
-            get { return typeof(decimal); }
-        }
+        public override Type ValueType => typeof(decimal);
     }
 }

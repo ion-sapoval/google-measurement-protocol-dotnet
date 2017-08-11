@@ -10,9 +10,6 @@
         {
         }
 
-        public override string Name
-        {
-            get { return "dclid"; }
-        }
+        public override string Name => "dclid";
     }
 }

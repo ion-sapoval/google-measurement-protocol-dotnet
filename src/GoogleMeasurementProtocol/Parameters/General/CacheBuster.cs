@@ -11,9 +11,6 @@
         {
         }
 
-        public override string Name
-        {
-            get { return "z"; }
-        }
+        public override string Name => "z";
     }
 }

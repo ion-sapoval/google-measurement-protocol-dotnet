@@ -9,9 +9,6 @@
         {
         }
 
-        public override string Name
-        {
-            get { return "cs"; }
-        }
+        public override string Name => "cs";
     }
 }

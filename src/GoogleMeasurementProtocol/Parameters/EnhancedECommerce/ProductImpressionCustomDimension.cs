@@ -29,7 +29,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
                 IndexValidator.ValidateListIndex(ListIndex);
                 IndexValidator.ValidateDimensionIndex(DimensionIndex);
 
-                return string.Format("il{0}pi{1}cd{2}",ListIndex, ProductIndex, DimensionIndex);
+                return $"il{ListIndex}pi{ProductIndex}cd{DimensionIndex}";
             }
         }
     }

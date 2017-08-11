@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoogleMeasurementProtocol.Parameters
 {
@@ -12,23 +9,15 @@ namespace GoogleMeasurementProtocol.Parameters
         {
             Value = value;
         }
+
         public abstract string Name { get; }
 
-        public virtual Type ValueType
-        {
-            get { return typeof (string); }
-        }
+        public virtual Type ValueType => typeof (string);
 
         public object Value { get; set; }
 
-        public virtual List<string> SupportedHitTypes
-        {
-            get { return null; }
-        }
+        public virtual List<string> SupportedHitTypes => null;
 
-        public virtual bool IsRequired
-        {
-            get { return false; }
-        }
+        public virtual bool IsRequired => false;
     }
 }

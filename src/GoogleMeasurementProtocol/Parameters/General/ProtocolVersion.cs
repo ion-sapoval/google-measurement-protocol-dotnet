@@ -9,14 +9,8 @@
         {
         }
 
-        public override string Name
-        {
-            get { return "v"; }
-        }
+        public override string Name => "v";
 
-        public override bool IsRequired
-        {
-            get { return true; }
-        }
+        public override bool IsRequired => true;
     }
 }

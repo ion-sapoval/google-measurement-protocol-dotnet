@@ -22,7 +22,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
             {
                 IndexValidator.ValidateProductIndex(ProductIndex);
 
-                return string.Format("pr{0}id", ProductIndex);
+                return $"pr{ProductIndex}id";
             }
         }
     }

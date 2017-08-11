@@ -11,9 +11,6 @@
         {
         }
 
-        public override string Name
-        {
-            get { return @"promoa"; }
-        }
+        public override string Name => @"promoa";
     }
 }

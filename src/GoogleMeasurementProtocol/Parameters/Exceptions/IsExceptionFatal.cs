@@ -13,19 +13,10 @@ namespace GoogleMeasurementProtocol.Parameters.Exceptions
         {
         }
 
-        public override string Name
-        {
-            get { return "exf"; }
-        }
+        public override string Name => "exf";
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string> { HitTypes.Exception }; }
-        }
+        public override List<string> SupportedHitTypes => new List<string> { HitTypes.Exception };
 
-        public override Type ValueType
-        {
-            get { return typeof(bool); }
-        }
+        public override Type ValueType => typeof(bool);
     }
 }

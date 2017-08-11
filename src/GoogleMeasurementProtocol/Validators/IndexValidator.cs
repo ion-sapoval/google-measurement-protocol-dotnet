@@ -43,5 +43,13 @@ namespace GoogleMeasurementProtocol.Validators
                 throw new ApplicationException("Promotion index must be a positive integer between 1 and 200, inclusive.");
             }
         }
+
+        public static void ValidateContentGroupIndex(byte index)
+        {
+            if (index < 1 || index > 5)
+            {
+                throw new ApplicationException("Group index must be a positive integer between 1 and 5, inclusive.");
+            }
+        }
     }
 }

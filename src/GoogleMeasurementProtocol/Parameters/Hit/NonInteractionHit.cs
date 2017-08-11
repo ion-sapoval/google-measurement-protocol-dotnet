@@ -12,14 +12,8 @@ namespace GoogleMeasurementProtocol.Parameters.Hit
         {
         }
 
-        public override string Name
-        {
-            get { return "ni"; }
-        }
+        public override string Name => "ni";
 
-        public override Type ValueType
-        {
-            get { return typeof(bool); }
-        }
+        public override Type ValueType => typeof(bool);
     }
 }

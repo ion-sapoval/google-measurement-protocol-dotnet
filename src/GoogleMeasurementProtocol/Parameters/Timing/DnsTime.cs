@@ -13,19 +13,10 @@ namespace GoogleMeasurementProtocol.Parameters.Timing
         {
         }
 
-        public override string Name
-        {
-            get { return "dns"; }
-        }
+        public override string Name => "dns";
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string> { HitTypes.Timing }; }
-        }
+        public override List<string> SupportedHitTypes => new List<string> { HitTypes.Timing };
 
-        public override Type ValueType
-        {
-            get { return typeof(int); }
-        }
+        public override Type ValueType => typeof(int);
     }
 }

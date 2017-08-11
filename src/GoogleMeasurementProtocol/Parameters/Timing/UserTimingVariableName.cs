@@ -12,14 +12,8 @@ namespace GoogleMeasurementProtocol.Parameters.Timing
         {
         }
 
-        public override string Name
-        {
-            get { return "utv"; }
-        }
+        public override string Name => "utv";
 
-        public override List<string> SupportedHitTypes
-        {
-            get { return new List<string> { HitTypes.Timing }; }
-        }
+        public override List<string> SupportedHitTypes => new List<string> { HitTypes.Timing };
     }
 }

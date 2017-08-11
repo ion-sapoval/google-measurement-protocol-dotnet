@@ -17,12 +17,12 @@ namespace GoogleMeasurementProtocol.Requests
         protected readonly IWebProxy Proxy;
         protected string HitType;
 
-        protected RequestBase(bool useSsl = false, IWebProxy proxy = null)
+        protected RequestBase(IWebProxy proxy = null)
         {
             Proxy = proxy;
             Parameters = new List<Parameter>();
 
-            _uri = useSsl ? new Uri("https://ssl.google-analytics.com/collect") : new Uri("http://www.google-analytics.com/collect");
+            _uri = new Uri("https://www.google-analytics.com/collect");
         }
 
         public List<Parameter> Parameters { get; set; }
@@ -64,9 +64,9 @@ namespace GoogleMeasurementProtocol.Requests
 
         private void MakeRequest(ClientId clientId, string method)
         {
-            if (clientId == null || clientId.Value == null)
+            if (clientId?.Value == null)
             {
-                throw new ArgumentNullException("clientId");
+                throw new ArgumentNullException(nameof(clientId));
             }
 
             Parameters.Add(clientId);
@@ -121,9 +121,9 @@ namespace GoogleMeasurementProtocol.Requests
 
         private Task MakeRequestAsync(ClientId clientId, string method)
         {
-            if (clientId == null || clientId.Value == null)
+            if (clientId?.Value == null)
             {
-                throw new ArgumentNullException("clientId");
+                throw new ArgumentNullException(nameof(clientId));
             }
 
             Parameters.Add(clientId);
@@ -163,9 +163,9 @@ namespace GoogleMeasurementProtocol.Requests
                 throw new ApplicationException("TrackingId parameter is missing.");
             }
 
-            if (!Parameters.Exists(p => p is ClientId))
+            if (!Parameters.Exists(p => p is ClientId) && !Parameters.Exists(p => p is UserId))
             {
-                throw new ApplicationException("ClientId parameter is missing.");
+                throw new ApplicationException("ClientId or UserId parameter should be present in the request.");
             }
 
             if (!Parameters.Exists(p => p is HitType))
@@ -177,7 +177,7 @@ namespace GoogleMeasurementProtocol.Requests
             {
                 if (param.SupportedHitTypes != null && !param.SupportedHitTypes.Exists(h => h.Equals(HitType)))
                 {
-                    throw new ApplicationException(string.Format("Parameters of type '{0}' are not supported by requests of type {1}", param.GetType().Name, GetType().Name));
+                    throw new ApplicationException($"Parameters of type '{param.GetType().Name}' are not supported by requests of type {GetType().Name}");
                 }
             }
         }

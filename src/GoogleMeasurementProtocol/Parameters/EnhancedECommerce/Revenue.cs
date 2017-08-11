@@ -14,14 +14,8 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
         {
         }
 
-        public override string Name
-        {
-            get { return "tr"; }
-        }
+        public override string Name => "tr";
 
-        public override Type ValueType
-        {
-            get { return typeof(decimal); }
-        }
+        public override Type ValueType => typeof(decimal);
     }
 }
