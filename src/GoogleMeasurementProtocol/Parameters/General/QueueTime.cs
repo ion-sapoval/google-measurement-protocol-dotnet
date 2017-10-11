@@ -1,4 +1,6 @@
-﻿namespace GoogleMeasurementProtocol.Parameters.General
+﻿using System;
+
+namespace GoogleMeasurementProtocol.Parameters.General
 {
     /// <summary>
     /// Used to collect offline / latent hits. The value represents the time delta (in milliseconds) between when the hit
@@ -12,5 +14,7 @@
         }
 
         public override string Name => "qt";
+
+        public override Type ValueType => typeof(int);
     }
 }

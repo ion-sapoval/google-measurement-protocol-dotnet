@@ -12,7 +12,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 
         public byte ListIndex { get; set; }
 
-        public ProductImpressionPosition(string value, byte productIndex = 1, byte listIndex = 1)
+        public ProductImpressionPosition(int value, byte productIndex = 1, byte listIndex = 1)
             : base(value)
         {
             ProductIndex = productIndex;

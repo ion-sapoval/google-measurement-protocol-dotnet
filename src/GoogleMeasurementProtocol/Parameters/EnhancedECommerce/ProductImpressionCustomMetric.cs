@@ -14,7 +14,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 
         public byte MetricIndex { get; set; }
 
-        public ProductImpressionCustomMetric(string value, byte productIndex = 1, byte listIndex = 1, byte metricIndex = 1)
+        public ProductImpressionCustomMetric(int value, byte productIndex = 1, byte listIndex = 1, byte metricIndex = 1)
             : base(value)
         {
             ProductIndex = productIndex;

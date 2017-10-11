@@ -13,7 +13,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 
         public byte MetricIndex { get; set; }
 
-        public ProductCustomMetric(string value, byte productIndex = 1, byte metricIndex = 1)
+        public ProductCustomMetric(int value, byte productIndex = 1, byte metricIndex = 1)
             : base(value)
         {
             ProductIndex = productIndex;

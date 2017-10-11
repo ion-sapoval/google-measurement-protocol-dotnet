@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test_GoogleAnalyticsRequestFactory\CreateRequest.cs" />
+    <Compile Include="Test_ParameterDefinitions\ParameterTypeConsistency.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

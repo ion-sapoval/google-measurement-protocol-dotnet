@@ -10,7 +10,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
     {
         public byte ProductIndex { get; set; }
 
-        public ProductQuantity(string value, byte productIndex = 1)
+        public ProductQuantity(int value, byte productIndex = 1)
             : base(value)
         {
             ProductIndex = productIndex;

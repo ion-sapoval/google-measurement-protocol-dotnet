@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters.ContentInformation;
 using GoogleMeasurementProtocol.Parameters.ECommerce;
@@ -24,11 +25,8 @@ namespace TestConsole
 
             var requestValidationResponse = request.Debug.Get(new UserId("userId"));
 
-
             Console.Write("Done!");
             Console.ReadKey();
-
-
         }
     }
 }
