@@ -62,10 +62,6 @@ Install-Package GoogleMeasurementProtocol
             request.Parameters.Add(new IpOverride("1.2.3.4"));
 ```
 
-## Exceptions
-
-All exceptions that occur in library will be propagated to the calling thread.
-
 License
 ----
 
