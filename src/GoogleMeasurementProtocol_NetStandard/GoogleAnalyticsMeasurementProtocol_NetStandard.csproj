@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>GoogleMeasurementProtocol</AssemblyName>
+    <RootNamespace>GoogleMeasurementProtocol</RootNamespace>
+    <PackageId>GoogleMeasurementProtocol</PackageId>
+    <Version>1.4.3</Version>
+    <Authors>Ion Sapoval</Authors>
+    <Company>Ion Sapoval</Company>
+    <Description>.Net library for sending Google Analytics Measurement Protocol requests. 
+This library provides support for creating any type of Measurement Protocol request by using any of the existing Measurement Protocol request parameters.</Description>
+    <Copyright>Copyright (c) 2014</Copyright>
+    <PackageLicenseUrl>https://github.com/ion-sapoval/google-measurement-protocol-dotnet/blob/master/LICENSE.TXT</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ion-sapoval/google-measurement-protocol-dotnet</PackageProjectUrl>
+    <PackageTags>MeasurementProtocol Google GoogleMeasurementProtocol Analytics</PackageTags>
+    <PackageReleaseNotes>Signed assembly with a Strong Name.
+Converted to a .Net Standard library.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+
+</Project>
