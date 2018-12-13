@@ -13,7 +13,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
 
         public byte MetricIndex { get; set; }
 
-        public ProductCustomMetric(int value, byte productIndex = 1, byte metricIndex = 1)
+        public ProductCustomMetric(decimal value, byte productIndex = 1, byte metricIndex = 1)
             : base(value)
         {
             ProductIndex = productIndex;
@@ -31,7 +31,7 @@ namespace GoogleMeasurementProtocol.Parameters.EnhancedECommerce
             }
         }
 
-        public override Type ValueType => typeof(int);
+        public override Type ValueType => typeof(decimal);
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Net;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GoogleMeasurementProtocol.Extensions;
 using GoogleMeasurementProtocol.Parameters;
@@ -14,193 +14,125 @@ namespace GoogleMeasurementProtocol.Requests
 {
     public abstract class RequestBase : IGoogleAnalyticsRequest
     {
-        private readonly Uri _uri;
-        protected readonly IWebProxy Proxy;
-        protected string HitType;
+        internal readonly HttpClient InternalHttpClient;
 
-        protected RequestBase(IWebProxy proxy = null)
+        public string HitType;
+
+        protected RequestBase(HttpClient httpClient)
         {
-            Proxy = proxy;
+            InternalHttpClient = httpClient;
+
             Parameters = new List<Parameter>();
-
-            _uri = new Uri("https://www.google-analytics.com/collect");
-
-            Debug = new DebugRequest(Parameters, Proxy);
         }
 
-        public IDebugRequest Debug { get; private set; }
+        public IDebugRequest Debug => new DebugRequest(this);
 
         public List<Parameter> Parameters { get; set; }
 
-        public virtual void Post(ClientId clientId)
-        {
-            if (clientId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(clientId));
-            }
-
-            Parameters.Add(clientId);
-
-            MakeRequest("POST");
-        }
-
-        public virtual void Post(UserId userId)
-        {
-            if (userId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            Parameters.Add(userId);
-
-            MakeRequest("POST");
-        }
-
-        public virtual void Get(ClientId clientId)
-        {
-            if (clientId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(clientId));
-            }
-
-            if (!Parameters.Exists(p => p is CacheBuster))
-            {
-                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
-            }
-
-            Parameters.Add(clientId);
-
-            MakeRequest("GET");
-        }
-
-        public virtual void Get(UserId userId)
-        {
-            if (userId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            if (!Parameters.Exists(p => p is CacheBuster))
-            {
-                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
-            }
-
-            Parameters.Add(userId);
-
-            MakeRequest("GET");
-        }
-
-        private void MakeRequest(string httpMethod)
+        internal async Task<string> MakeRequestAsync(string httpMethod, HttpClient httpClient, string url)
         {
             ValidateRequestParams();
 
-            var requestParams = new NameValueCollection();
+            if (httpMethod == HttpMethod.GET)
+                return await httpClient.GetStringAsync($"{url}?{Parameters.GenerateQueryString()}");
 
-            using (var webClient = new WebClient())
-            {
-                webClient.Proxy = Proxy;
+            var response = await httpClient.PostAsync(url, Parameters.GenerateStringContent());
+            response.EnsureSuccessStatusCode();
 
-                requestParams.Add(Parameters.GenerateNameValueCollection());
-
-                if (httpMethod == "POST")
-                {
-                    webClient.UploadValues(_uri, httpMethod, requestParams);
-                }
-                else
-                {
-                    webClient.QueryString = requestParams;
-                    webClient.DownloadString(_uri);
-                }
-            }
+            return await response.Content.ReadAsStringAsync();
         }
 
-        private async Task MakeRequestAsync(string httpMethod)
+        internal async Task<string> PostAsync(ClientId clientId, string url)
         {
-            ValidateRequestParams();
+            CheckAndAddClientId(clientId);
 
-            var requestParams = new NameValueCollection();
-
-            using (var webClient = new WebClient())
-            {
-                webClient.Proxy = Proxy;
-
-                requestParams.Add(Parameters.GenerateNameValueCollection());
-
-                if (httpMethod == "POST")
-                {
-                    await webClient.UploadValuesTaskAsync(_uri, httpMethod, requestParams);
-                }
-                else
-                {
-                    webClient.QueryString = requestParams;
-                    await webClient.DownloadStringTaskAsync(_uri);
-                }
-            }
+            return await MakeRequestAsync(HttpMethod.POST, InternalHttpClient, url);
         }
 
         public virtual async Task PostAsync(ClientId clientId)
         {
-            if (clientId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(clientId));
-            }
+            await PostAsync(clientId, GoogleEndpointAddresses.Collect);
+        }
 
-            Parameters.Add(clientId);
+        internal async Task<string> PostAsync(UserId userId, string url)
+        {
+            CheckAndAddUserId(userId);
 
-            await MakeRequestAsync("POST");
+           return await MakeRequestAsync(HttpMethod.POST, InternalHttpClient, url);
         }
 
         public virtual async Task PostAsync(UserId userId)
         {
-            if (userId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
+            await PostAsync(userId, GoogleEndpointAddresses.Collect);
+        }
 
-            Parameters.Add(userId);
+        internal async Task<string> GetAsync(ClientId clientId, string url)
+        {
+            CheckAndAddClientId(clientId);
 
-            await MakeRequestAsync("POST");
+            IfNotExistsAddCacheBusterParam();
+
+            return await MakeRequestAsync(HttpMethod.GET, InternalHttpClient, url);
         }
 
         public virtual async Task GetAsync(ClientId clientId)
         {
-            if (clientId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(clientId));
-            }
+            await GetAsync(clientId, GoogleEndpointAddresses.Collect);
+        }
 
-            if (!Parameters.Exists(p => p is CacheBuster))
-            {
-                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
-            }
+        internal async Task<string> GetAsync(UserId userId, string url)
+        {
+            CheckAndAddUserId(userId);
 
-            Parameters.Add(clientId);
+            IfNotExistsAddCacheBusterParam();
 
-            await MakeRequestAsync("GET");
+            return await MakeRequestAsync(HttpMethod.GET, InternalHttpClient, url);
         }
 
         public virtual async Task GetAsync(UserId userId)
         {
-            if (userId?.Value == null)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            if (!Parameters.Exists(p => p is CacheBuster))
-            {
-                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
-            }
-
-            Parameters.Add(userId);
-
-            await MakeRequestAsync("GET");
+            await GetAsync(userId, GoogleEndpointAddresses.Collect);
         }
-      
+
         protected virtual void ValidateRequestParams()
         {
             RequiredParamsValidator.Validate(Parameters);
 
             CompatibilityValidator.Validate(Parameters, this, HitType);
+        }
+
+        internal void CheckAndAddUserId(UserId userId)
+        {
+            if (userId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            if (Parameters.Any(p => p.Name == userId.Name))
+                return;
+
+            Parameters.Add(userId);
+        }
+
+        internal void CheckAndAddClientId(ClientId clientId)
+        {
+            if (clientId?.Value == null)
+            {
+                throw new ArgumentNullException(nameof(clientId));
+            }
+
+            if (Parameters.Any(p => p.Name == clientId.Name))
+                return;
+
+            Parameters.Add(clientId);
+        }
+
+        internal void IfNotExistsAddCacheBusterParam()
+        {
+            if (!Parameters.Exists(p => p is CacheBuster))
+            {
+                Parameters.Add(new CacheBuster(Guid.NewGuid().ToString()));
+            }
         }
     }
 }

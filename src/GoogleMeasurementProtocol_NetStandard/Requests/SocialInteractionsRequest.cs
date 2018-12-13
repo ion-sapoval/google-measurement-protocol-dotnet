@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.Net.Http;
 using GoogleMeasurementProtocol.Parameters.Hit;
 using GoogleMeasurementProtocol.Parameters.SocialInteractions;
 
@@ -7,7 +7,7 @@ namespace GoogleMeasurementProtocol.Requests
 {
     public class SocialInteractionsRequest : RequestBase
     {
-        public SocialInteractionsRequest(IWebProxy proxy = null) : base(proxy)
+        public SocialInteractionsRequest(HttpClient httpClient) : base(httpClient)
         {
             HitType = HitTypes.Social;
             Parameters.Add(new HitType(HitTypes.Social));

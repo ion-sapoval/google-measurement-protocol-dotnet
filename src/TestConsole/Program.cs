@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
 using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters.ContentInformation;
-using GoogleMeasurementProtocol.Parameters.ECommerce;
 using GoogleMeasurementProtocol.Parameters.User;
+using GoogleMeasurementProtocol.Requests;
 
 namespace TestConsole
 {
@@ -14,16 +13,29 @@ namespace TestConsole
         {
             var factory = new GoogleAnalyticsRequestFactory("UA-104485591-1");
             
-            var request = factory.CreateRequest(HitTypes.PageView);
+            var request1 = factory.CreateRequest(HitTypes.PageView);
 
-            request.Parameters.Add(new DocumentHostName("test.com"));
-            request.Parameters.Add(new DocumentPath("/test/testPath4"));
-            request.Parameters.Add(new DocumentTitle("test title2"));
+            request1.Parameters.Add(new DocumentHostName("test55.com"));
+            request1.Parameters.Add(new DocumentPath("/test/testPath6"));
+            request1.Parameters.Add(new DocumentTitle("test title2"));
+            request1.Parameters.Add(new UserId(Guid.NewGuid().ToString()));
 
-            //request.GetAsync(new ClientId(Guid.NewGuid())).Wait();
-            request.PostAsync(new UserId(Guid.NewGuid().ToString())).Wait();
+            var request2 = factory.CreateRequest(HitTypes.PageView);
 
-            var requestValidationResponse = request.Debug.Get(new UserId("userId"));
+            request2.Parameters.Add(new DocumentHostName("test555.com"));
+            request2.Parameters.Add(new DocumentPath("/test/testPath555"));
+            request2.Parameters.Add(new DocumentTitle("test title5"));
+            request2.Parameters.Add(new ClientId(Guid.NewGuid().ToString()));
+
+            request1.GetAsync(new ClientId(Guid.NewGuid())).Wait();
+            request1.PostAsync(new UserId(Guid.NewGuid().ToString())).Wait();
+
+            var batchRequest = 
+                factory.CreateBatchRequest(new List<IGoogleAnalyticsRequest> { request1, request2 });
+
+            batchRequest.PostAsync().Wait();
+
+            var requestValidationResponse = request1.Debug.GetAsync(new UserId("userId")).Result;
 
             Console.Write("Done!");
             Console.ReadKey();

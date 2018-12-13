@@ -12,7 +12,7 @@ namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
     {
         public byte MetricIndex { get; set; }
 
-        public CustomMetric(int value, byte metricIndex = 1)
+        public CustomMetric(decimal value, byte metricIndex = 1)
             : base(value)
         {
             MetricIndex = metricIndex;
@@ -28,6 +28,6 @@ namespace GoogleMeasurementProtocol.Parameters.CustomDimensions
             }
         }
 
-       public override Type ValueType => typeof (int);
+       public override Type ValueType => typeof (decimal);
     }
 }

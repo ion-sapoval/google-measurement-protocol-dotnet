@@ -5,7 +5,7 @@
     <AssemblyName>GoogleMeasurementProtocol</AssemblyName>
     <RootNamespace>GoogleMeasurementProtocol</RootNamespace>
     <PackageId>GoogleMeasurementProtocol</PackageId>
-    <Version>1.4.3</Version>
+    <Version>2.0.0</Version>
     <Authors>Ion Sapoval</Authors>
     <Company>Ion Sapoval</Company>
     <Description>.Net library for sending Google Analytics Measurement Protocol requests. 
@@ -14,12 +14,16 @@ This library provides support for creating any type of Measurement Protocol requ
     <PackageLicenseUrl>https://github.com/ion-sapoval/google-measurement-protocol-dotnet/blob/master/LICENSE.TXT</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ion-sapoval/google-measurement-protocol-dotnet</PackageProjectUrl>
     <PackageTags>MeasurementProtocol Google GoogleMeasurementProtocol Analytics</PackageTags>
-    <PackageReleaseNotes>Signed assembly with a Strong Name.
-Converted to a .Net Standard library.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Added support for batch requests
+- Added support for decimal values for Custom Metrics
+- Removed non async methods
+- Performance improvements and bug fixes</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <RepositoryUrl>https://github.com/ion-sapoval/google-measurement-protocol-dotnet</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.Net.Http;
 using GoogleMeasurementProtocol.Parameters.ContentInformation;
 using GoogleMeasurementProtocol.Parameters.Hit;
 
@@ -7,7 +7,7 @@ namespace GoogleMeasurementProtocol.Requests
 {
     public class PageViewRequest : RequestBase
     {
-        public PageViewRequest(IWebProxy proxy = null) : base(proxy)
+        public PageViewRequest(HttpClient httpClient) : base(httpClient)
         {
             HitType = HitTypes.PageView;
             Parameters.Add(new HitType(HitTypes.PageView));

@@ -1,30 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using GoogleMeasurementProtocol.Parameters;
 using GoogleMeasurementProtocol.Parameters.General;
 using GoogleMeasurementProtocol.Requests;
+using GoogleMeasurementProtocol.Requests.Batch;
 
 
 namespace GoogleMeasurementProtocol
 {
     public class GoogleAnalyticsRequestFactory
     {
-        private readonly IWebProxy _proxy;
         private readonly ProtocolVersion _protocolVersion = new ProtocolVersion("1");
         private readonly TrackingId _trackingId;
+        private readonly HttpClient _httpClient;
+        private readonly HttpClientHandler _httpClientHandler;
 
-        [Obsolete("Google is supporting now only https protocol. Parameter useSsl doesn't have any effect.")]
-        public GoogleAnalyticsRequestFactory(TrackingId trackingId, bool useSslConnection, IWebProxy proxy = null) : this(trackingId, proxy)
+        private GoogleAnalyticsRequestFactory(IWebProxy proxy)
         {
+            _httpClientHandler = new HttpClientHandler
+            {
+                Proxy = proxy,
+                UseProxy = proxy != null
+            };
+
+            _httpClient = new HttpClient(_httpClientHandler);
         }
 
-        [Obsolete("Google is supporting now only https protocol. Parameter useSsl doesn't have any effect.")]
-        public GoogleAnalyticsRequestFactory(string trackingId, bool useSslConnection, IWebProxy proxy = null) : this(trackingId, proxy)
-        {
-        }
-
-        public GoogleAnalyticsRequestFactory(TrackingId trackingId, IWebProxy proxy = null)
+        /// <summary>
+        /// Creates an instance of the factory based on the provided parameters.
+        /// All requests created by the same instance of the factory will reuse same instance of the HttpClient.
+        /// It is recommended to have a singleton factory. 
+        /// </summary>
+        /// <param name="trackingId"></param>
+        /// <param name="proxy"></param>
+        public GoogleAnalyticsRequestFactory(TrackingId trackingId, IWebProxy proxy = null) : this(proxy)
         {
             if (trackingId?.Value == null)
             {
@@ -32,10 +44,16 @@ namespace GoogleMeasurementProtocol
             }
 
             _trackingId = trackingId;
-            _proxy = proxy;
         }
 
-        public GoogleAnalyticsRequestFactory(string trackingId, IWebProxy proxy = null)
+        /// <summary>
+        /// Creates an instance of the factory based on the provided parameters.
+        /// All requests created by the same instance of the factory will reuse same instance of the HttpClient.
+        /// It is recommended to have a singleton factory. 
+        /// </summary>
+        /// <param name="trackingId"></param>
+        /// <param name="proxy"></param>
+        public GoogleAnalyticsRequestFactory(string trackingId, IWebProxy proxy = null) : this(proxy)
         {
             if (string.IsNullOrEmpty(trackingId))
             {
@@ -43,7 +61,6 @@ namespace GoogleMeasurementProtocol
             }
 
             _trackingId = new TrackingId(trackingId);
-            _proxy = proxy;
         }
 
 
@@ -60,42 +77,42 @@ namespace GoogleMeasurementProtocol
             {
                 case HitTypes.PageView:
 
-                    request = new PageViewRequest(_proxy);
+                    request = new PageViewRequest(_httpClient);
                     break;
 
                 case HitTypes.Event:
 
-                    request = new EventRequest(_proxy);
+                    request = new EventRequest(_httpClient);
                     break;
 
                 case HitTypes.Exception:
 
-                    request = new ExceptionTrackingRequest(_proxy);
+                    request = new ExceptionTrackingRequest(_httpClient);
                     break;
 
                 case HitTypes.Item:
 
-                    request = new ItemRequest(_proxy);
+                    request = new ItemRequest(_httpClient);
                     break;
 
                 case HitTypes.ScreenView:
 
-                    request = new ScreenTrackingRequest(_proxy);
+                    request = new ScreenTrackingRequest(_httpClient);
                     break;
 
                 case HitTypes.Social:
 
-                    request = new SocialInteractionsRequest(_proxy);
+                    request = new SocialInteractionsRequest(_httpClient);
                     break;
 
                 case HitTypes.Timing:
 
-                    request = new UserTimingTrackingRequest(_proxy);
+                    request = new UserTimingTrackingRequest(_httpClient);
                     break;
 
                 case HitTypes.Transaction:
 
-                    request = new TransactionRequest(_proxy);
+                    request = new TransactionRequest(_httpClient);
                     break;
 
 
@@ -113,5 +130,26 @@ namespace GoogleMeasurementProtocol
 
             return request;
         }
+
+        /// <summary>
+        /// Creates a IGoogleAnalyticsBatchRequest instance that can be used for grouping multiple
+        /// requests and make one single call to Google
+        /// </summary>
+        /// <param name="requests">
+        /// Requests to be grouped and send together.
+        /// Important: Each request should  contain ClientId or UserId parameter
+        /// </param>
+        /// <returns></returns>
+        public IGoogleAnalyticsBatchRequest CreateBatchRequest(IEnumerable<IGoogleAnalyticsRequest> requests)
+        {
+            if (requests == null || requests.Count() == 0)
+            {
+                return null;
+            }
+
+            return new BatchRequest(_httpClient, requests.Select(r=>(RequestBase)r));
+        }
     }
+
+   
 }

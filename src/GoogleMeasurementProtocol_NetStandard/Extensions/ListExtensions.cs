@@ -1,42 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Globalization;
+using System.Net.Http;
 using GoogleMeasurementProtocol.Parameters;
 
 namespace GoogleMeasurementProtocol.Extensions
 {
     public static class ListExtensions
     {
-        public static NameValueCollection GenerateNameValueCollection(this List<Parameter> list)
+        public static string GenerateQueryString(this List<Parameter> list)
         {
-            var nameValueCollection = new NameValueCollection();
-
             if (list == null)
             {
-                return nameValueCollection;
+                return string.Empty;
             }
+
+            var paramsDictionary = new Dictionary<string, string>();
 
             foreach (var param in list)
             {
+                
                 switch (param.ValueType.Name)
                 {
                     case "Boolean":
 
-                        nameValueCollection[param.Name] = param.Value == null ? string.Empty : (bool)param.Value ? "1" : "0";
+                        paramsDictionary[param.Name] = param.Value == null ? string.Empty : (bool)param.Value ? "1" : "0";
                         break;
 
                     case "Decimal":
-                        nameValueCollection[param.Name] = param.Value == null ? string.Empty : Convert.ToString(param.Value, CultureInfo.InvariantCulture);
+                        paramsDictionary[param.Name] = param.Value == null ? string.Empty : Convert.ToString(param.Value, CultureInfo.InvariantCulture);
                         break;
 
                     default:
-                        nameValueCollection[param.Name] = param.Value == null ? string.Empty : param.Value.ToString();
+                        paramsDictionary[param.Name] = param.Value == null ? string.Empty : param.Value.ToString();
                         break;
                 }
             }
 
-            return nameValueCollection;
+            using (var formUrlEncodedContent = new FormUrlEncodedContent(paramsDictionary))
+            {
+                return formUrlEncodedContent.ReadAsStringAsync().Result;
+            }
+        }
+
+        public static StringContent GenerateStringContent(this List<Parameter> list)
+        {
+            return new StringContent(list.GenerateQueryString());
         }
     }
 }

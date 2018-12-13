@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.Net.Http;
 using GoogleMeasurementProtocol.Parameters.ECommerce;
 using GoogleMeasurementProtocol.Parameters.Hit;
 
@@ -7,7 +7,7 @@ namespace GoogleMeasurementProtocol.Requests
 {
     public class ItemRequest : RequestBase
     {
-        public ItemRequest(IWebProxy proxy = null) : base(proxy)
+        public ItemRequest(HttpClient httpClient) : base(httpClient)
         {
             HitType = HitTypes.Item;
             Parameters.Add(new HitType(HitTypes.Item));

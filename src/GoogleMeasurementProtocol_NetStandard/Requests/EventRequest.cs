@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.Net.Http;
 using GoogleMeasurementProtocol.Parameters.EventTracking;
 using GoogleMeasurementProtocol.Parameters.Hit;
 
@@ -7,7 +7,7 @@ namespace GoogleMeasurementProtocol.Requests
 {
     public class EventRequest : RequestBase
     {
-        public EventRequest(IWebProxy proxy = null) : base(proxy)
+        public EventRequest(HttpClient httpClient) : base(httpClient)
         {
             HitType = HitTypes.Event;
             Parameters.Add(new HitType(HitTypes.Event));
