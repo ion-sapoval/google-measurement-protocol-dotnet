@@ -54,6 +54,36 @@ namespace GoogleMeasurementProtocol
 
                     request = new PageViewRequest(_useSsl, _proxy);
                     break;
+                    
+                case HitTypes.Event:
+
+                   request = new EventRequest(_useSsl, _proxy);
+                   break;
+
+               case HitTypes.Item:
+
+                   request = new ItemRequest(_useSsl, _proxy);
+                   break;
+
+               case HitTypes.ScreenView:
+
+                   request = new ScreenTrackingRequest(_useSsl, _proxy);
+                   break;
+
+               case HitTypes.Social:
+
+                   request = new SocialInteractionsRequest(_useSsl, _proxy);
+                   break;
+
+               case HitTypes.Timing:
+
+                   request = new UserTimingTrackingRequest(_useSsl, _proxy);
+                   break;
+
+               case HitTypes.Transaction:
+
+                   request = new TransactionRequest(_useSsl, _proxy);
+                   break;
 
                 default:
                     throw new ApplicationException("Unknown hitType: " + hitType);
