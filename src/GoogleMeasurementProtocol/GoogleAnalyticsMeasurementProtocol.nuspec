@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GoogleMeasurementProtocolNet45</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Kristijan Burnik</authors>
     <owners>Kristijan Burnik</owners>
     <licenseUrl>https://github.com/kburnik/google-measurement-protocol-dotnet/blob/master/LICENSE.TXT</licenseUrl>
