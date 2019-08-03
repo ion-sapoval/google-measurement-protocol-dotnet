@@ -42,7 +42,7 @@ namespace GoogleMeasurementProtocol.Requests.Batch
             }
 
             var response =
-                await _httpClient.PostAsync(GoogleEndpointAddresses.BatchCollect, new StringContent(sb.ToString()));
+                await _httpClient.PostAsync(GoogleEndpointAddresses.BatchCollect, new StringContent(sb.ToString())).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
 

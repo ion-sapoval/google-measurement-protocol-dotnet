@@ -34,9 +34,9 @@ namespace GoogleMeasurementProtocol.Requests
             ValidateRequestParams();
 
             if (httpMethod == HttpMethod.GET)
-                return await httpClient.GetStringAsync($"{url}?{Parameters.GenerateQueryString()}");
+                return await httpClient.GetStringAsync($"{url}?{Parameters.GenerateQueryString()}").ConfigureAwait(false);
 
-            var response = await httpClient.PostAsync(url, Parameters.GenerateStringContent());
+            var response = await httpClient.PostAsync(url, Parameters.GenerateStringContent()).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsStringAsync();

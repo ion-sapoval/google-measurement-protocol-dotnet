@@ -35,7 +35,7 @@ namespace TestConsole
 
             batchRequest.PostAsync().Wait();
 
-            var requestValidationResponse = request1.Debug.GetAsync(new UserId("userId")).Result;
+            var requestValidationResponse = request1.Debug.PostAsync(new UserId("userId")).Result;
 
             Console.Write("Done!");
             Console.ReadKey();
