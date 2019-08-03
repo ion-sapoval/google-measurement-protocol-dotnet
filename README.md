@@ -57,7 +57,7 @@ Install-Package GoogleMeasurementProtocol
             var httpClient = new HttpClient(httpClientHandler)
 
             //Create a factory which will create requests that will use https connection through the given proxy
-            var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxx-x", webProxy);
+            var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxx-x", httpClient);
 ```
 
 * Set Agent and Ip info
