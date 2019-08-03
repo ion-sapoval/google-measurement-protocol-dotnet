@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters.ContentInformation;
 using GoogleMeasurementProtocol.Parameters.User;
@@ -11,7 +12,7 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            var factory = new GoogleAnalyticsRequestFactory("UA-104485591-1");
+            var factory = new GoogleAnalyticsRequestFactory("UA-104485591-1", new HttpClient());
             
             var request1 = factory.CreateRequest(HitTypes.PageView);
 

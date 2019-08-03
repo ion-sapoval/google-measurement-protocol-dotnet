@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GoogleMeasurementProtocol, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6379dfd9a81b378e, processorArchitecture=MSIL">
-      <HintPath>..\packages\GoogleMeasurementProtocol.2.0.0\lib\netstandard2.0\GoogleMeasurementProtocol.dll</HintPath>
+    <Reference Include="GoogleMeasurementProtocol, Version=2.1.0.0, Culture=neutral, PublicKeyToken=6379dfd9a81b378e, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleMeasurementProtocol.2.1.0\lib\netstandard2.0\GoogleMeasurementProtocol.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
