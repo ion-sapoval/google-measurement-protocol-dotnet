@@ -30,25 +30,31 @@ Install-Package GoogleMeasurementProtocol
             var clientId = new ClientId(Guid.NewGuid());
 
             //Make a get request which will contain all information from above
-            request.Get(clientId);
+            await request.GetAsync(clientId);
 
             //Make a Post request which will contain all information from above
-            request.Post(clientId);
+            await request.PostAsync(clientId);
 ```
 
 * Validating Hits
 
 ```csharp
            
-            var requestValidationResponseForGet = request.Debug.Get(new UserId("userId"));
-            var requestValidationResponseForPost = request.Debug.Post(new UserId("userId"));
+            var requestValidationResponseForGet = await request.Debug.GetAsync(new UserId("userId"));
+            var requestValidationResponseForPost = await request.Debug.PostAsync(new UserId("userId"));
             
 ```
 
 * Connection configuration
 
 ```csharp
-           var webProxy = new WebProxy("http://localhost:8888");
+            var httpClientHandler = new HttpClientHandler
+            {
+                Proxy = new WebProxy("http://localhost:8888"),
+                UseProxy = true
+            };
+            
+            var httpClient = new HttpClient(httpClientHandler)
 
             //Create a factory which will create requests that will use https connection through the given proxy
             var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxx-x", webProxy);
@@ -60,6 +66,17 @@ Install-Package GoogleMeasurementProtocol
            
             request.Parameters.Add(new UserAgentOverride("Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14"));
             request.Parameters.Add(new IpOverride("1.2.3.4"));
+```
+
+* Batch Requests
+
+```csharp
+           
+            var batchRequest = 
+                factory.CreateBatchRequest(new List<IGoogleAnalyticsRequest> { request1, request2 });
+
+            await batchRequest.PostAsync();
+            
 ```
 
 License

@@ -16,17 +16,10 @@ namespace GoogleMeasurementProtocol
         private readonly ProtocolVersion _protocolVersion = new ProtocolVersion("1");
         private readonly TrackingId _trackingId;
         private readonly HttpClient _httpClient;
-        private readonly HttpClientHandler _httpClientHandler;
 
-        private GoogleAnalyticsRequestFactory(IWebProxy proxy)
+        private GoogleAnalyticsRequestFactory(HttpClient httpClient)
         {
-            _httpClientHandler = new HttpClientHandler
-            {
-                Proxy = proxy,
-                UseProxy = proxy != null
-            };
-
-            _httpClient = new HttpClient(_httpClientHandler);
+            _httpClient = httpClient ?? new HttpClient();
         }
 
         /// <summary>
@@ -35,8 +28,8 @@ namespace GoogleMeasurementProtocol
         /// It is recommended to have a singleton factory. 
         /// </summary>
         /// <param name="trackingId"></param>
-        /// <param name="proxy"></param>
-        public GoogleAnalyticsRequestFactory(TrackingId trackingId, IWebProxy proxy = null) : this(proxy)
+        /// <param name="httpClient"></param>
+        public GoogleAnalyticsRequestFactory(TrackingId trackingId, HttpClient httpClient = null) : this(httpClient)
         {
             if (trackingId?.Value == null)
             {
@@ -52,8 +45,8 @@ namespace GoogleMeasurementProtocol
         /// It is recommended to have a singleton factory. 
         /// </summary>
         /// <param name="trackingId"></param>
-        /// <param name="proxy"></param>
-        public GoogleAnalyticsRequestFactory(string trackingId, IWebProxy proxy = null) : this(proxy)
+        /// <param name="httpClient"></param>
+        public GoogleAnalyticsRequestFactory(string trackingId, HttpClient httpClient = null) : this(httpClient)
         {
             if (string.IsNullOrEmpty(trackingId))
             {
