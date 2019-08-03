@@ -48,7 +48,13 @@ Install-Package GoogleMeasurementProtocol
 * Connection configuration
 
 ```csharp
-           var webProxy = new WebProxy("http://localhost:8888");
+            var httpClientHandler = new HttpClientHandler
+            {
+                Proxy = new WebProxy("http://localhost:8888"),
+                UseProxy = true
+            };
+            
+            var httpClient = new HttpClient(httpClientHandler)
 
             //Create a factory which will create requests that will use https connection through the given proxy
             var factory = new GoogleAnalyticsRequestFactory("UA-xxxxxxx-x", webProxy);
