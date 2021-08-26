@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
+using System.Threading.Tasks;
 using GoogleMeasurementProtocol.Parameters;
 
 namespace GoogleMeasurementProtocol.Extensions
 {
     public static class ListExtensions
     {
-        public static string GenerateQueryString(this List<Parameter> list)
+        public static async Task<string> GenerateQueryStringAsync(this List<Parameter> list)
         {
             if (list == null)
             {
@@ -39,13 +40,13 @@ namespace GoogleMeasurementProtocol.Extensions
 
             using (var formUrlEncodedContent = new FormUrlEncodedContent(paramsDictionary))
             {
-                return formUrlEncodedContent.ReadAsStringAsync().Result;
+                return await formUrlEncodedContent.ReadAsStringAsync();
             }
         }
 
-        public static StringContent GenerateStringContent(this List<Parameter> list)
+        public static async Task<StringContent> GenerateStringContentAsync(this List<Parameter> list)
         {
-            return new StringContent(list.GenerateQueryString());
+            return new StringContent(await list.GenerateQueryStringAsync());
         }
     }
 }

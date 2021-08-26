@@ -38,7 +38,7 @@ namespace GoogleMeasurementProtocol.Requests.Batch
 
             foreach (var request in _requests)
             {
-                sb.AppendLine(request.Parameters.GenerateQueryString());
+                sb.AppendLine(await request.Parameters.GenerateQueryStringAsync());
             }
 
             var response =
