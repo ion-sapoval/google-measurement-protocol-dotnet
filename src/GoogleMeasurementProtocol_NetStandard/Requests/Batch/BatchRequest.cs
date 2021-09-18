@@ -54,7 +54,7 @@ namespace GoogleMeasurementProtocol.Requests.Batch
                 {
                     RequiredParamsValidator.Validate(_requests[i].Parameters);
 
-                    CompatibilityValidator.Validate(_requests[i].Parameters, _requests[i],_requests[i].HitType);
+                    CompatibilityValidator.Validate(_requests[i]);
                 }
                 catch (Exception ex)
                 {

@@ -21,6 +21,11 @@ namespace GoogleMeasurementProtocol.Requests.Debug
             return JsonConvert.DeserializeObject<RequestValidationResponse>(response);
         }
 
+        public async Task<RequestValidationResponse> PostAsync()
+        {
+            return await PostAsync((ClientId)null);
+        }
+
         public async Task<RequestValidationResponse> PostAsync(UserId userId)
         {
             var response =
@@ -35,6 +40,11 @@ namespace GoogleMeasurementProtocol.Requests.Debug
                 await _requestToDebug.GetAsync(clientId, GoogleEndpointAddresses.DebugCollect).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<RequestValidationResponse>(response);
+        }
+
+        public async Task<RequestValidationResponse> GetAsync()
+        {
+            return await GetAsync((ClientId)null);
         }
 
         public async Task<RequestValidationResponse> GetAsync(UserId userId)

@@ -5,7 +5,7 @@
     <AssemblyName>GoogleMeasurementProtocol</AssemblyName>
     <RootNamespace>GoogleMeasurementProtocol</RootNamespace>
     <PackageId>GoogleMeasurementProtocol</PackageId>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <Authors>Ion Sapoval</Authors>
     <Company>Ion Sapoval</Company>
     <Title>Google Measurement Protocol</Title>
@@ -15,8 +15,9 @@ This library provides support for creating any type of Measurement Protocol requ
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ion-sapoval/google-measurement-protocol-dotnet</PackageProjectUrl>
     <PackageTags>MeasurementProtocol Google GoogleMeasurementProtocol Analytics</PackageTags>
-    <PackageReleaseNotes>- Added possibility to inject HttpClient
-- Async actions are no longer dependent on captured context.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Added support for Disabling Advertising Personalization parameter
+- Added parameterless overload for PostAsync and GetAsync from request level
+- Fixes and improvements</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>

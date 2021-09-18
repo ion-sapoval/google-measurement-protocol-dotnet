@@ -21,6 +21,11 @@ namespace GoogleMeasurementProtocol.Requests
         /// <summary>
         /// Makes an async Post request to Google Analytics
         /// </summary>
+        Task PostAsync();
+
+        /// <summary>
+        /// Makes an async Post request to Google Analytics
+        /// </summary>
         /// <param name="userId">This is intended to be a known identifier for a user provided by the site owner/tracking library user</param>
         Task PostAsync(UserId userId);
 
@@ -29,6 +34,11 @@ namespace GoogleMeasurementProtocol.Requests
         /// </summary>
         /// <param name="clientId">Anonymously identifies a particular user, device, or browser instance</param>
         Task GetAsync(ClientId clientId);
+
+        /// <summary>
+        /// Makes an async Get request to Google Analytics
+        /// </summary>
+        Task GetAsync();
 
         /// <summary>
         /// Makes an async Get request to Google Analytics

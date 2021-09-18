@@ -54,6 +54,11 @@ namespace GoogleMeasurementProtocol.Requests
             await PostAsync(clientId, GoogleEndpointAddresses.Collect);
         }
 
+        public virtual async Task PostAsync()
+        {
+            await PostAsync((ClientId)null);
+        }
+
         internal async Task<string> PostAsync(UserId userId, string url)
         {
             CheckAndAddUserId(userId);
@@ -80,6 +85,11 @@ namespace GoogleMeasurementProtocol.Requests
             await GetAsync(clientId, GoogleEndpointAddresses.Collect);
         }
 
+        public virtual async Task GetAsync()
+        {
+            await GetAsync((ClientId)null);
+        }
+
         internal async Task<string> GetAsync(UserId userId, string url)
         {
             CheckAndAddUserId(userId);
@@ -98,7 +108,7 @@ namespace GoogleMeasurementProtocol.Requests
         {
             RequiredParamsValidator.Validate(Parameters);
 
-            CompatibilityValidator.Validate(Parameters, this, HitType);
+            CompatibilityValidator.Validate(this);
         }
 
         internal void CheckAndAddUserId(UserId userId)
@@ -116,7 +126,12 @@ namespace GoogleMeasurementProtocol.Requests
 
         internal void CheckAndAddClientId(ClientId clientId)
         {
-            if (clientId?.Value == null)
+            if (clientId == null)
+            {
+                return;
+            }
+
+            if (clientId.Value == null)
             {
                 throw new ArgumentNullException(nameof(clientId));
             }
