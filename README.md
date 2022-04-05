@@ -1,5 +1,5 @@
-google-measurement-protocol-dotnet
-==================================
+google-measurement-protocol-dotnet —  ⚠️ This project is no longer maintained!!!! ⚠️
+=================================================================================
 
 .Net library for sending Google Analytics Measurement Protocol requests. This library provides support for creating any type of Measurement Protocol request by using any of the existing Measurement Protocol request parameters. It implements basic validation of the requests and parameters, but before using this library please read [Measurement Protocol Developer Guide] and [Measurement Protocol Parameter Reference] for being able to create correct requests.
 
